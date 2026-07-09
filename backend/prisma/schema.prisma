@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id        String   @id @default(cuid())
+  name      String   @unique @db.VarChar(120)
+  prefix    String   @unique @db.VarChar(10)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  handtagBatches HandtagBatch[]
+  handtagCodes   HandtagCode[]
+
+  @@map("products")
+}
+
+model HandtagBatch {
+  id          String      @id @default(cuid())
+  productId   String
+  quantity    Int
+  status      BatchStatus @default(PENDING)
+  generatedAt DateTime?
+  completedAt DateTime?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  notes       String?     @db.Text
+
+  product      Product       @relation(fields: [productId], references: [id], onDelete: Restrict)
+  handtagCodes HandtagCode[]
+
+  @@index([productId, status])
+  @@map("handtag_batches")
+}
+
+model HandtagCode {
+  id          String     @id @default(cuid())
+  batchId     String
+  productId   String
+  code        String     @unique @db.VarChar(32)
+  qrUrl       String     @db.Text
+  status      CodeStatus @default(GENERATED)
+  generatedAt DateTime   @default(now())
+  usedAt      DateTime?
+  createdAt   DateTime   @default(now())
+
+  batch   HandtagBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  product Product      @relation(fields: [productId], references: [id], onDelete: Restrict)
+
+  @@index([productId, status])
+  @@index([batchId])
+  @@map("handtag_codes")
+}
+
+enum BatchStatus {
+  PENDING
+  GENERATING
+  COMPLETED
+  FAILED
+}
+
+enum CodeStatus {
+  GENERATED
+  PRINTED
+  USED
+  VOID
+}
