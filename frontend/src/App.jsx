@@ -3,10 +3,13 @@ import './App.css'
 import { ProductList } from './components/ProductList'
 import { BatchForm } from './components/BatchForm'
 import { BatchList } from './components/BatchList'
+import { TemplateAdmin } from './components/TemplateAdmin'
+import { CalibrationPanel } from './components/CalibrationPanel'
 
 function App() {
   const [selectedProductId, setSelectedProductId] = useState(null)
   const [refreshBatches, setRefreshBatches] = useState(0)
+  const [activeSection, setActiveSection] = useState('production')
 
   const handleBatchGenerated = () => {
     setRefreshBatches(prev => prev + 1)
@@ -22,9 +25,37 @@ function App() {
       </header>
 
       <main className="app-main">
+        <div className="section-tabs">
+          <button
+            type="button"
+            className={`section-tab ${activeSection === 'production' ? 'active' : ''}`}
+            onClick={() => setActiveSection('production')}
+          >
+            Producción
+          </button>
+          <button
+            type="button"
+            className={`section-tab ${activeSection === 'calibration' ? 'active' : ''}`}
+            onClick={() => setActiveSection('calibration')}
+          >
+            Calibración
+          </button>
+        </div>
+
+        {activeSection === 'calibration' ? (
+          <div className="layout-grid calibration-layout-grid">
+            <aside className="sidebar">
+              <TemplateAdmin />
+            </aside>
+            <section className="main-content">
+              <CalibrationPanel />
+            </section>
+          </div>
+        ) : (
         <div className="layout-grid">
           {/* Sidebar: Productos */}
           <aside className="sidebar">
+            <TemplateAdmin />
             <ProductList 
               onProductSelect={setSelectedProductId}
               selectedProductId={selectedProductId}
@@ -41,6 +72,7 @@ function App() {
             <BatchList refreshTrigger={refreshBatches} />
           </section>
         </div>
+        )}
       </main>
 
       <footer className="app-footer">

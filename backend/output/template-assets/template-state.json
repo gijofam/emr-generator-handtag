@@ -1,0 +1,15 @@
+{
+  "front": {
+    "fileName": "frontal oficial.png",
+    "mimeType": "image/png",
+    "path": "D:\\gipa\\EMR\\ECOSISTEMA\\EMR-Handtag-Generator\\backend\\output\\template-assets\\active-front.png",
+    "updatedAt": "2026-07-11T20:49:05.199Z"
+  },
+  "back": {
+    "fileName": "reverso oficial.png",
+    "mimeType": "image/png",
+    "path": "D:\\gipa\\EMR\\ECOSISTEMA\\EMR-Handtag-Generator\\backend\\output\\template-assets\\active-back.png",
+    "updatedAt": "2026-07-11T20:49:05.199Z"
+  },
+  "updatedAt": "2026-07-11T20:49:05.199Z"
+}

@@ -1,6 +1,6 @@
 const { mmToPoints, DEFAULT_HANDTAG_WIDTH_MM, DEFAULT_HANDTAG_HEIGHT_MM, DEFAULT_BLEED_MM, DEFAULT_MARGIN_MM, DEFAULT_SPACING_MM } = require('./printConfig');
 
-function calculateLayout({ paperSize, margins = {}, spacing = DEFAULT_SPACING_MM, bleed = DEFAULT_BLEED_MM, handtagWidth = DEFAULT_HANDTAG_WIDTH_MM, handtagHeight = DEFAULT_HANDTAG_HEIGHT_MM }) {
+function calculateLayout({ paperSize, margins = {}, spacing = DEFAULT_SPACING_MM, bleed = DEFAULT_BLEED_MM, handtagWidth = DEFAULT_HANDTAG_WIDTH_MM, handtagHeight = DEFAULT_HANDTAG_HEIGHT_MM, handtagCount = 1 }) {
   const resolvedPaper = {
     width: paperSize.width,
     height: paperSize.height,
@@ -28,7 +28,8 @@ function calculateLayout({ paperSize, margins = {}, spacing = DEFAULT_SPACING_MM
   const handtagsPerPage = columns * rows;
   const totalArea = effectiveWidth * effectiveHeight;
   const paperArea = usableWidth * usableHeight;
-  const utilization = Math.min(100, (handtagsPerPage * totalArea / paperArea) * 100);
+  const utilization = handtagsPerPage > 0 ? Math.min(100, (handtagsPerPage * totalArea / paperArea) * 100) : 0;
+  const pagesRequired = Math.max(1, Math.ceil(handtagCount / handtagsPerPage));
 
   return {
     paper: resolvedPaper,
@@ -44,6 +45,7 @@ function calculateLayout({ paperSize, margins = {}, spacing = DEFAULT_SPACING_MM
     columns,
     rows,
     handtagsPerPage,
+    pagesRequired,
     utilizationPercent: Number(utilization.toFixed(2)),
     handtagWidthPt: mmToPoints(effectiveWidth),
     handtagHeightPt: mmToPoints(effectiveHeight),
@@ -51,6 +53,8 @@ function calculateLayout({ paperSize, margins = {}, spacing = DEFAULT_SPACING_MM
     pageHeightPt: mmToPoints(resolvedPaper.height),
     usableWidthPt: mmToPoints(usableWidth),
     usableHeightPt: mmToPoints(usableHeight),
+    startXPt: mmToPoints(resolvedMargins.left),
+    startYPt: mmToPoints(resolvedMargins.top),
   };
 }
 

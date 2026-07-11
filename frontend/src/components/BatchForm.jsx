@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { apiClient } from '../services/api';
+import { getProductionPrintConfig } from '../services/calibrationStore';
 
 export function BatchForm({ productId, onBatchGenerated }) {
   const [quantity, setQuantity] = useState(1);
@@ -22,7 +23,8 @@ export function BatchForm({ productId, onBatchGenerated }) {
     try {
       setLoading(true);
       setError(null);
-      const batchResult = await apiClient.generateBatch(productId, quantity, notes);
+      const printConfig = getProductionPrintConfig();
+      const batchResult = await apiClient.generateBatch(productId, quantity, notes, printConfig);
       setResult(batchResult);
       setQuantity(1);
       setNotes('');

@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 
 const MM_TO_POINTS = 2.83464567;
@@ -33,9 +34,9 @@ function getPaperSize(sizeKey, customSize = null) {
 function getDefaultQrPlacement() {
   return {
     x: 20,
-    y: 80,
-    width: 35,
-    height: 35,
+    y: 18,
+    width: 30,
+    height: 30,
   };
 }
 
@@ -44,15 +45,35 @@ function resolveTemplatePath(templatePath) {
     return null;
   }
 
-  return path.isAbsolute(templatePath)
-    ? templatePath
-    : path.resolve(process.cwd(), templatePath);
+  const candidates = [];
+  if (path.isAbsolute(templatePath)) {
+    candidates.push(templatePath);
+  }
+
+  candidates.push(path.resolve(process.cwd(), templatePath));
+  candidates.push(path.resolve(process.cwd(), '..', templatePath));
+  candidates.push(path.resolve(__dirname, '../../../', templatePath));
+
+  for (const candidate of candidates) {
+    if (candidate && fs.existsSync(candidate)) {
+      return candidate;
+    }
+  }
+
+  return candidates[0] || null;
 }
 
 function normalizePrintConfig(config = {}) {
   const qrPlacement = {
     ...(getDefaultQrPlacement()),
     ...(config.qrPlacement || {}),
+  };
+
+  const margins = {
+    top: Number(config.margins?.top ?? config.margins?.vertical ?? config.marginMm ?? DEFAULT_MARGIN_MM),
+    right: Number(config.margins?.right ?? config.margins?.horizontal ?? config.marginMm ?? DEFAULT_MARGIN_MM),
+    bottom: Number(config.margins?.bottom ?? config.margins?.vertical ?? config.marginMm ?? DEFAULT_MARGIN_MM),
+    left: Number(config.margins?.left ?? config.margins?.horizontal ?? config.marginMm ?? DEFAULT_MARGIN_MM),
   };
 
   return {
@@ -64,6 +85,8 @@ function normalizePrintConfig(config = {}) {
     paperSize: config.paperSize || 'A4',
     paperWidthMm: Number(config.paperWidthMm ?? 210),
     paperHeightMm: Number(config.paperHeightMm ?? 297),
+    imposition: config.imposition !== undefined ? Boolean(config.imposition) : true,
+    margins,
     qrPlacement,
     templateFrontPath: config.templateFrontPath || '',
     templateBackPath: config.templateBackPath || '',

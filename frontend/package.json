@@ -10,8 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "frontend": "file:",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "react-dom": "^19.2.7",
+    "react-draggable": "4.5.0",
+    "react-rnd": "^10.5.3"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

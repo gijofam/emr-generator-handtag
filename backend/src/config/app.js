@@ -1,4 +1,5 @@
 const path = require('path');
+const templateStore = require('../utils/templateStore');
 
 module.exports = {
   outputDir: path.resolve(__dirname, '../../output'),
@@ -12,13 +13,18 @@ module.exports = {
     paperSize: 'A4',
     paperWidthMm: 210,
     paperHeightMm: 297,
+    imposition: true,
     qrPlacement: {
       x: 20,
-      y: 80,
-      width: 35,
-      height: 35,
+      y: 18,
+      width: 30,
+      height: 30,
     },
-    templateFrontPath: process.env.HANDTAG_FRONT_TEMPLATE || '',
-    templateBackPath: process.env.HANDTAG_BACK_TEMPLATE || '',
+    get templateFrontPath() {
+      return templateStore.getActiveTemplatePath('front');
+    },
+    get templateBackPath() {
+      return templateStore.getActiveTemplatePath('back');
+    },
   },
 };
