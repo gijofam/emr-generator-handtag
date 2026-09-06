@@ -1,0 +1,795 @@
+{
+  "preview": {
+    "stages": [
+      {
+        "stage": "4.resolveLocalHandtagSize",
+        "file": "src/services/pdfService.js",
+        "function": "resolveLocalHandtagSize",
+        "line": 159,
+        "variables": {
+          "input": {
+            "handtagWidthMm": 160,
+            "handtagHeightMm": 65,
+            "bleedMm": 3,
+            "templateImageMeta": {
+              "width": 798,
+              "height": 1971
+            }
+          },
+          "output": {
+            "width": 470.55118122,
+            "height": 201.25984257
+          },
+          "comparison": {
+            "sameWidth": true,
+            "sameHeight": true,
+            "sameOrientation": true
+          }
+        }
+      },
+      {
+        "stage": "3.drawHandtagPage",
+        "file": "src/services/pdfService.js",
+        "function": "drawHandtagPage",
+        "line": 276,
+        "variables": {
+          "received": {
+            "x": 0,
+            "y": 0,
+            "width": 453.5433072,
+            "height": 184.25196855
+          },
+          "templateImageMeta": {
+            "width": 798,
+            "height": 1971
+          },
+          "naturalWidth": 798,
+          "naturalHeight": 1971,
+          "detectedOrientation": "vertical"
+        }
+      },
+      {
+        "stage": "5.templateSlotRect",
+        "file": "src/services/pdfService.js",
+        "function": "drawHandtagPage",
+        "line": 301,
+        "variables": {
+          "x": 0,
+          "y": 0,
+          "width": 470.55118122,
+          "height": 201.25984257
+        }
+      },
+      {
+        "stage": "6.drawRect",
+        "file": "src/services/pdfService.js",
+        "function": "drawHandtagPage",
+        "line": 302,
+        "variables": {
+          "x": 0,
+          "y": 0,
+          "width": 470.55118122,
+          "height": 201.25984257
+        }
+      },
+      {
+        "stage": "4.resolveLocalHandtagSize",
+        "file": "src/services/pdfService.js",
+        "function": "resolveLocalHandtagSize",
+        "line": 159,
+        "variables": {
+          "input": {
+            "handtagWidthMm": 160,
+            "handtagHeightMm": 65,
+            "bleedMm": 3,
+            "templateImageMeta": {
+              "width": 798,
+              "height": 1971
+            }
+          },
+          "output": {
+            "width": 470.55118122,
+            "height": 201.25984257
+          },
+          "comparison": {
+            "sameWidth": true,
+            "sameHeight": true,
+            "sameOrientation": true
+          }
+        }
+      },
+      {
+        "stage": "7.beforeDocImage",
+        "file": "src/services/pdfService.js",
+        "function": "drawHandtagPage",
+        "line": 320,
+        "variables": {
+          "argsSentToImage": {
+            "srcType": "buffer",
+            "x": 0,
+            "y": 0,
+            "options": {
+              "width": 470.55118122,
+              "height": 201.25984257
+            }
+          }
+        }
+      },
+      {
+        "stage": "8.PDFKit.image.received.template",
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "image",
+        "line": null,
+        "variables": {
+          "received": {
+            "srcType": "buffer",
+            "x": 0,
+            "y": 0,
+            "options": {
+              "width": 470.55118122,
+              "height": 201.25984257
+            }
+          },
+          "ctmRawBefore": [
+            470.55118122,
+            0,
+            0,
+            201.25984257,
+            0,
+            640.6299214200001
+          ],
+          "ctmTypeBefore": "array"
+        }
+      },
+      {
+        "stage": "9.afterImage.template",
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "image",
+        "line": null,
+        "variables": {
+          "ctmRawAfter": [
+            85.0393701,
+            0,
+            0,
+            85.0393701,
+            56.6929134,
+            705.82677183
+          ],
+          "ctmTypeAfter": "array",
+          "boundingBox": {
+            "x": 0,
+            "y": 0,
+            "width": 470.55118122,
+            "height": 201.25984257
+          },
+          "transformFinal": [
+            85.0393701,
+            0,
+            0,
+            85.0393701,
+            56.6929134,
+            705.82677183
+          ],
+          "scaleApplied": {
+            "width": 470.55118122,
+            "height": 201.25984257
+          }
+        }
+      },
+      {
+        "stage": "7.beforeDocImage",
+        "file": "src/services/pdfService.js",
+        "function": "drawHandtagPage",
+        "line": 320,
+        "variables": {
+          "argsSentToImage": {
+            "srcType": "buffer",
+            "x": 56.6929134,
+            "y": 51.02362206,
+            "options": {
+              "width": 85.0393701,
+              "height": 85.0393701
+            }
+          }
+        }
+      },
+      {
+        "stage": "8.PDFKit.image.received.qr",
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "image",
+        "line": null,
+        "variables": {
+          "received": {
+            "srcType": "buffer",
+            "x": 56.6929134,
+            "y": 51.02362206,
+            "options": {
+              "width": 85.0393701,
+              "height": 85.0393701
+            }
+          },
+          "ctmRawBefore": [
+            85.0393701,
+            0,
+            0,
+            85.0393701,
+            56.6929134,
+            705.82677183
+          ],
+          "ctmTypeBefore": "array"
+        }
+      },
+      {
+        "stage": "9.afterImage.qr",
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "image",
+        "line": null,
+        "variables": {
+          "ctmRawAfter": [
+            1,
+            0,
+            0,
+            -1,
+            0,
+            841.88976399
+          ],
+          "ctmTypeAfter": "array",
+          "boundingBox": {
+            "x": 56.6929134,
+            "y": 51.02362206,
+            "width": 85.0393701,
+            "height": 85.0393701
+          },
+          "transformFinal": [
+            1,
+            0,
+            0,
+            -1,
+            0,
+            841.88976399
+          ],
+          "scaleApplied": {
+            "width": 85.0393701,
+            "height": 85.0393701
+          }
+        }
+      },
+      {
+        "stage": "4.resolveLocalHandtagSize",
+        "file": "src/services/pdfService.js",
+        "function": "resolveLocalHandtagSize",
+        "line": 159,
+        "variables": {
+          "input": {
+            "handtagWidthMm": 160,
+            "handtagHeightMm": 65,
+            "bleedMm": 3,
+            "templateImageMeta": {
+              "width": 800,
+              "height": 1967
+            }
+          },
+          "output": {
+            "width": 470.55118122,
+            "height": 201.25984257
+          },
+          "comparison": {
+            "sameWidth": true,
+            "sameHeight": true,
+            "sameOrientation": true
+          }
+        }
+      },
+      {
+        "stage": "7.beforeDocImage",
+        "file": "src/services/pdfService.js",
+        "function": "drawHandtagPage",
+        "line": 320,
+        "variables": {
+          "argsSentToImage": {
+            "srcType": "buffer",
+            "x": 0,
+            "y": 0,
+            "options": {
+              "width": 470.55118122,
+              "height": 201.25984257
+            }
+          }
+        }
+      },
+      {
+        "stage": "8.PDFKit.image.received.template",
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "image",
+        "line": null,
+        "variables": {
+          "received": {
+            "srcType": "buffer",
+            "x": 0,
+            "y": 0,
+            "options": {
+              "width": 470.55118122,
+              "height": 201.25984257
+            }
+          },
+          "ctmRawBefore": [
+            470.55118122,
+            0,
+            0,
+            201.25984257,
+            0,
+            640.6299214200001
+          ],
+          "ctmTypeBefore": "array"
+        }
+      },
+      {
+        "stage": "9.afterImage.template",
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "image",
+        "line": null,
+        "variables": {
+          "ctmRawAfter": [
+            1,
+            0,
+            0,
+            -1,
+            0,
+            841.88976399
+          ],
+          "ctmTypeAfter": "array",
+          "boundingBox": {
+            "x": 0,
+            "y": 0,
+            "width": 470.55118122,
+            "height": 201.25984257
+          },
+          "transformFinal": [
+            1,
+            0,
+            0,
+            -1,
+            0,
+            841.88976399
+          ],
+          "scaleApplied": {
+            "width": 470.55118122,
+            "height": 201.25984257
+          }
+        }
+      }
+    ]
+  },
+  "production": {
+    "stages": [
+      {
+        "stage": "2.drawImposedPdf",
+        "file": "src/services/pdfService.js",
+        "function": "drawImposedPdf",
+        "line": 228,
+        "variables": {
+          "firstHandtag": {
+            "slotX": 28.3464567,
+            "slotY": 28.3464567,
+            "width": 470.55118122,
+            "height": 201.25984257
+          },
+          "rotation": 0,
+          "previewMode": false,
+          "printConfig": {
+            "handtagWidthMm": 160,
+            "handtagHeightMm": 65,
+            "bleedMm": 3,
+            "marginMm": 10,
+            "spacingMm": 3,
+            "paperSize": "A4",
+            "paperWidthMm": 210,
+            "paperHeightMm": 297,
+            "imposition": true,
+            "margins": {
+              "top": 10,
+              "right": 10,
+              "bottom": 10,
+              "left": 10
+            },
+            "qrPlacement": {
+              "x": 20,
+              "y": 18,
+              "width": 30,
+              "height": 30
+            },
+            "templateFrontPath": "D:\\gipa\\EMR\\ECOSISTEMA\\EMR-Handtag-Generator\\backend\\output\\template-assets\\active-front.png",
+            "templateBackPath": "D:\\gipa\\EMR\\ECOSISTEMA\\EMR-Handtag-Generator\\backend\\output\\template-assets\\active-back.png",
+            "preserveTemplateOrientation": false,
+            "previewMode": false,
+            "debugPreviewQr": true,
+            "previewOffsetMm": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        }
+      },
+      {
+        "stage": "1.calculateLayout",
+        "file": "src/utils/printLayout.js",
+        "function": "calculateLayout",
+        "line": 3,
+        "variables": {
+          "pageWidthMm": 210,
+          "pageHeightMm": 297,
+          "usableWidth": 190,
+          "usableHeight": 277,
+          "effectiveWidth": 166,
+          "effectiveHeight": 71,
+          "columns": 1,
+          "rows": 3,
+          "slotWidth": 470.55118122,
+          "slotHeight": 201.25984257,
+          "slotX": 28.3464567,
+          "slotY": 28.3464567,
+          "handtagWidthPt": 470.55118122,
+          "handtagHeightPt": 201.25984257,
+          "orientation": "horizontal"
+        }
+      },
+      {
+        "stage": "4.resolveLocalHandtagSize",
+        "file": "src/services/pdfService.js",
+        "function": "resolveLocalHandtagSize",
+        "line": 159,
+        "variables": {
+          "input": {
+            "handtagWidthMm": 160,
+            "handtagHeightMm": 65,
+            "bleedMm": 3,
+            "templateImageMeta": {
+              "width": 798,
+              "height": 1971
+            }
+          },
+          "output": {
+            "width": 470.55118122,
+            "height": 201.25984257
+          },
+          "comparison": {
+            "sameWidth": true,
+            "sameHeight": true,
+            "sameOrientation": true
+          }
+        }
+      },
+      {
+        "stage": "3.drawHandtagPage",
+        "file": "src/services/pdfService.js",
+        "function": "drawHandtagPage",
+        "line": 276,
+        "variables": {
+          "received": {
+            "x": 28.3464567,
+            "y": 28.3464567,
+            "width": 470.55118122,
+            "height": 201.25984257
+          },
+          "templateImageMeta": {
+            "width": 798,
+            "height": 1971
+          },
+          "naturalWidth": 798,
+          "naturalHeight": 1971,
+          "detectedOrientation": "vertical"
+        }
+      },
+      {
+        "stage": "5.templateSlotRect",
+        "file": "src/services/pdfService.js",
+        "function": "drawHandtagPage",
+        "line": 301,
+        "variables": {
+          "x": 0,
+          "y": 0,
+          "width": 470.55118122,
+          "height": 201.25984257
+        }
+      },
+      {
+        "stage": "6.drawRect",
+        "file": "src/services/pdfService.js",
+        "function": "drawHandtagPage",
+        "line": 302,
+        "variables": {
+          "x": 0,
+          "y": 0,
+          "width": 470.55118122,
+          "height": 201.25984257
+        }
+      },
+      {
+        "stage": "4.resolveLocalHandtagSize",
+        "file": "src/services/pdfService.js",
+        "function": "resolveLocalHandtagSize",
+        "line": 159,
+        "variables": {
+          "input": {
+            "handtagWidthMm": 160,
+            "handtagHeightMm": 65,
+            "bleedMm": 3,
+            "templateImageMeta": {
+              "width": 798,
+              "height": 1971
+            }
+          },
+          "output": {
+            "width": 470.55118122,
+            "height": 201.25984257
+          },
+          "comparison": {
+            "sameWidth": true,
+            "sameHeight": true,
+            "sameOrientation": true
+          }
+        }
+      },
+      {
+        "stage": "7.beforeDocImage",
+        "file": "src/services/pdfService.js",
+        "function": "drawHandtagPage",
+        "line": 320,
+        "variables": {
+          "argsSentToImage": {
+            "srcType": "buffer",
+            "x": 0,
+            "y": 0,
+            "options": {
+              "width": 470.55118122,
+              "height": 201.25984257
+            }
+          }
+        }
+      },
+      {
+        "stage": "8.PDFKit.image.received.template",
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "image",
+        "line": null,
+        "variables": {
+          "received": {
+            "srcType": "buffer",
+            "x": 0,
+            "y": 0,
+            "options": {
+              "width": 470.55118122,
+              "height": 201.25984257
+            }
+          },
+          "ctmRawBefore": [
+            470.55118122,
+            0,
+            0,
+            201.25984257,
+            28.3464567,
+            612.28346472
+          ],
+          "ctmTypeBefore": "array"
+        }
+      },
+      {
+        "stage": "9.afterImage.template",
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "image",
+        "line": null,
+        "variables": {
+          "ctmRawAfter": [
+            85.0393701,
+            0,
+            0,
+            85.0393701,
+            85.0393701,
+            677.48031513
+          ],
+          "ctmTypeAfter": "array",
+          "boundingBox": {
+            "x": 0,
+            "y": 0,
+            "width": 470.55118122,
+            "height": 201.25984257
+          },
+          "transformFinal": [
+            85.0393701,
+            0,
+            0,
+            85.0393701,
+            85.0393701,
+            677.48031513
+          ],
+          "scaleApplied": {
+            "width": 470.55118122,
+            "height": 201.25984257
+          }
+        }
+      },
+      {
+        "stage": "7.beforeDocImage",
+        "file": "src/services/pdfService.js",
+        "function": "drawHandtagPage",
+        "line": 320,
+        "variables": {
+          "argsSentToImage": {
+            "srcType": "buffer",
+            "x": 56.6929134,
+            "y": 51.02362206,
+            "options": {
+              "width": 85.0393701,
+              "height": 85.0393701
+            }
+          }
+        }
+      },
+      {
+        "stage": "8.PDFKit.image.received.qr",
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "image",
+        "line": null,
+        "variables": {
+          "received": {
+            "srcType": "buffer",
+            "x": 56.6929134,
+            "y": 51.02362206,
+            "options": {
+              "width": 85.0393701,
+              "height": 85.0393701
+            }
+          },
+          "ctmRawBefore": [
+            85.0393701,
+            0,
+            0,
+            85.0393701,
+            85.0393701,
+            677.48031513
+          ],
+          "ctmTypeBefore": "array"
+        }
+      },
+      {
+        "stage": "9.afterImage.qr",
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "image",
+        "line": null,
+        "variables": {
+          "ctmRawAfter": [
+            1,
+            0,
+            0,
+            -1,
+            28.3464567,
+            813.54330729
+          ],
+          "ctmTypeAfter": "array",
+          "boundingBox": {
+            "x": 56.6929134,
+            "y": 51.02362206,
+            "width": 85.0393701,
+            "height": 85.0393701
+          },
+          "transformFinal": [
+            1,
+            0,
+            0,
+            -1,
+            28.3464567,
+            813.54330729
+          ],
+          "scaleApplied": {
+            "width": 85.0393701,
+            "height": 85.0393701
+          }
+        }
+      },
+      {
+        "stage": "4.resolveLocalHandtagSize",
+        "file": "src/services/pdfService.js",
+        "function": "resolveLocalHandtagSize",
+        "line": 159,
+        "variables": {
+          "input": {
+            "handtagWidthMm": 160,
+            "handtagHeightMm": 65,
+            "bleedMm": 3,
+            "templateImageMeta": {
+              "width": 800,
+              "height": 1967
+            }
+          },
+          "output": {
+            "width": 470.55118122,
+            "height": 201.25984257
+          },
+          "comparison": {
+            "sameWidth": true,
+            "sameHeight": true,
+            "sameOrientation": true
+          }
+        }
+      },
+      {
+        "stage": "7.beforeDocImage",
+        "file": "src/services/pdfService.js",
+        "function": "drawHandtagPage",
+        "line": 320,
+        "variables": {
+          "argsSentToImage": {
+            "srcType": "buffer",
+            "x": 0,
+            "y": 0,
+            "options": {
+              "width": 470.55118122,
+              "height": 201.25984257
+            }
+          }
+        }
+      },
+      {
+        "stage": "8.PDFKit.image.received.template",
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "image",
+        "line": null,
+        "variables": {
+          "received": {
+            "srcType": "buffer",
+            "x": 0,
+            "y": 0,
+            "options": {
+              "width": 470.55118122,
+              "height": 201.25984257
+            }
+          },
+          "ctmRawBefore": [
+            470.55118122,
+            0,
+            0,
+            201.25984257,
+            28.3464567,
+            612.28346472
+          ],
+          "ctmTypeBefore": "array"
+        }
+      },
+      {
+        "stage": "9.afterImage.template",
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "image",
+        "line": null,
+        "variables": {
+          "ctmRawAfter": [
+            1,
+            0,
+            0,
+            -1,
+            28.3464567,
+            813.54330729
+          ],
+          "ctmTypeAfter": "array",
+          "boundingBox": {
+            "x": 0,
+            "y": 0,
+            "width": 470.55118122,
+            "height": 201.25984257
+          },
+          "transformFinal": [
+            1,
+            0,
+            0,
+            -1,
+            28.3464567,
+            813.54330729
+          ],
+          "scaleApplied": {
+            "width": 470.55118122,
+            "height": 201.25984257
+          }
+        }
+      }
+    ]
+  }
+}

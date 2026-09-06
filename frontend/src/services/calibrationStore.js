@@ -2,13 +2,13 @@ const CALIBRATION_KEY = 'emr.handtag.calibration.v1';
 const ACTIVE_TEMPLATE_CACHE_KEY = 'emr.handtag.activeTemplate.front.v1';
 
 export const HANDTAG_DIMENSIONS_MM = {
-  width: 160,
-  height: 65,
+  width: 65,
+  height: 140,
 };
 
 export const DEFAULT_QR_PLACEMENT = {
-  x: 20,
-  y: 18,
+  x: 13,
+  y: 74,
   width: 30,
   height: 30,
 };

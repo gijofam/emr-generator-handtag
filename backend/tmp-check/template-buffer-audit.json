@@ -1,0 +1,88 @@
+{
+  "frontPath": "D:\\gipa\\EMR\\ECOSISTEMA\\EMR-Handtag-Generator\\backend\\output\\template-assets\\active-front.png",
+  "backPath": "D:\\gipa\\EMR\\ECOSISTEMA\\EMR-Handtag-Generator\\backend\\output\\template-assets\\active-back.png",
+  "original": {
+    "front": {
+      "bytes": 554806,
+      "sha256": "c49b8b13e893bea4eb556d3e2921fa7aed2cc41b1ee6cfbf03e5ec2512a9ceb9",
+      "naturalWidth": 798,
+      "naturalHeight": 1971
+    },
+    "back": {
+      "bytes": 713440,
+      "sha256": "60c610645fc86007614fe8c20b14013fb2d241bb5720a54c61cf6260bb40eee0",
+      "naturalWidth": 800,
+      "naturalHeight": 1967
+    }
+  },
+  "events": [
+    {
+      "type": "template-front",
+      "x": 0,
+      "y": 0,
+      "options": {
+        "width": 187.08661422,
+        "height": 385.51181112
+      },
+      "isBuf": true,
+      "srcHash": "c49b8b13e893bea4eb556d3e2921fa7aed2cc41b1ee6cfbf03e5ec2512a9ceb9",
+      "frontEq": true,
+      "backEq": false,
+      "natural": {
+        "naturalWidth": 798,
+        "naturalHeight": 1971
+      }
+    },
+    {
+      "type": "other",
+      "x": 56.6929134,
+      "y": 51.02362206,
+      "options": {
+        "width": 85.0393701,
+        "height": 85.0393701
+      },
+      "isBuf": true,
+      "srcHash": "29f97a3d5e354347e864581cd0db4c18d2a6254259bca70b5f8e54d7b34775f8",
+      "frontEq": false,
+      "backEq": false,
+      "natural": {
+        "naturalWidth": 260,
+        "naturalHeight": 260
+      }
+    },
+    {
+      "type": "template-back",
+      "x": 0,
+      "y": 0,
+      "options": {
+        "width": 187.08661422,
+        "height": 385.51181112
+      },
+      "isBuf": true,
+      "srcHash": "60c610645fc86007614fe8c20b14013fb2d241bb5720a54c61cf6260bb40eee0",
+      "frontEq": false,
+      "backEq": true,
+      "natural": {
+        "naturalWidth": 800,
+        "naturalHeight": 1967
+      }
+    }
+  ],
+  "firstTemplateEvent": {
+    "type": "template-front",
+    "x": 0,
+    "y": 0,
+    "options": {
+      "width": 187.08661422,
+      "height": 385.51181112
+    },
+    "isBuf": true,
+    "srcHash": "c49b8b13e893bea4eb556d3e2921fa7aed2cc41b1ee6cfbf03e5ec2512a9ceb9",
+    "frontEq": true,
+    "backEq": false,
+    "natural": {
+      "naturalWidth": 798,
+      "naturalHeight": 1971
+    }
+  }
+}

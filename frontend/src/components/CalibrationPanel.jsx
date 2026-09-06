@@ -37,8 +37,11 @@ function normalizeRectPx(rect, imageRect) {
 
   const minWidth = Math.max(12, imageRect.width * 0.03);
   const minHeight = Math.max(12, imageRect.height * 0.03);
-  const width = clamp(toNumber(rect?.width, minWidth), minWidth, imageRect.width);
-  const height = clamp(toNumber(rect?.height, minHeight), minHeight, imageRect.height);
+  const size = clamp(Math.min(toNumber(rect?.width, minWidth), toNumber(rect?.height, minHeight)),
+    Math.min(Math.max(minWidth, minHeight), imageRect.width, imageRect.height),
+    Math.min(imageRect.width, imageRect.height));
+  const width = size;
+  const height = size;
 
   return {
     x: clamp(toNumber(rect?.x, 0), 0, imageRect.width - width),
@@ -48,33 +51,35 @@ function normalizeRectPx(rect, imageRect) {
   };
 }
 
-function mmToPx(placementMm, imageRect) {
-  return normalizeRectPx(
-    {
-      x: (placementMm.x / HANDTAG_DIMENSIONS_MM.width) * imageRect.width,
-      y: (placementMm.y / HANDTAG_DIMENSIONS_MM.height) * imageRect.height,
-      width: (placementMm.width / HANDTAG_DIMENSIONS_MM.width) * imageRect.width,
-      height: (placementMm.height / HANDTAG_DIMENSIONS_MM.height) * imageRect.height,
-    },
-    imageRect,
-  );
-}
-
-function pxToMm(rectPx, imageRect) {
-  if (!imageRect.width || !imageRect.height) {
-    return normalizePlacementMm(DEFAULT_QR_PLACEMENT);
-  }
-
-  const scale = Math.min(
+// Match the PDF contain scale: both axes use the same physical scale.
+function calibrationMmPerPx(imageRect) {
+  return Math.min(
     HANDTAG_DIMENSIONS_MM.width / imageRect.width,
     HANDTAG_DIMENSIONS_MM.height / imageRect.height,
   );
+}
 
+function mmToPx(placementMm, imageRect) {
+  if (!imageRect.width || !imageRect.height) return normalizeRectPx({}, imageRect);
+  const scale = calibrationMmPerPx(imageRect);
+  const size = Math.min(placementMm.width, placementMm.height) / scale;
+  return normalizeRectPx({
+    x: placementMm.x / scale,
+    y: placementMm.y / scale,
+    width: size,
+    height: size,
+  }, imageRect);
+}
+
+function pxToMm(rectPx, imageRect) {
+  if (!imageRect.width || !imageRect.height) return normalizePlacementMm(DEFAULT_QR_PLACEMENT);
+  const scale = calibrationMmPerPx(imageRect);
+  const size = Math.min(rectPx.width, rectPx.height) * scale;
   return normalizePlacementMm({
     x: rectPx.x * scale,
     y: rectPx.y * scale,
-    width: rectPx.width * scale,
-    height: rectPx.height * scale,
+    width: size,
+    height: size,
   });
 }
 
@@ -134,6 +139,7 @@ export function CalibrationPanel() {
   const [previewError, setPreviewError] = useState('');
   const [previewDownloadUrl, setPreviewDownloadUrl] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
+  const [previewOffsetMm, setPreviewOffsetMm] = useState({ x: '0', y: '0' });
 
   const calibrationQrDataUrl = useMemo(() => createCalibrationQrSvgDataUrl(), []);
 
@@ -386,6 +392,7 @@ export function CalibrationPanel() {
     updateQrRect({
       ...qrRectPx,
       [field]: parsed,
+      ...((field === 'width' || field === 'height') ? { width: parsed, height: parsed } : {}),
     });
   }
 
@@ -452,9 +459,15 @@ export function CalibrationPanel() {
         previewObjectUrlRef.current = '';
       }
 
+      const previewOffsetPayload = {
+        x: Number(previewOffsetMm.x) || 0,
+        y: Number(previewOffsetMm.y) || 0,
+      };
+
       console.log('[Trace][CalibrationPanel] qrPlacement antes de generateCalibrationPreview:', qrPlacementMm);
       const result = await apiClient.generateCalibrationPreview({
         qrPlacement: qrPlacementMm,
+        previewOffsetMm: previewOffsetPayload,
       });
 
       setPreviewDownloadUrl(result.downloadUrl);
@@ -614,6 +627,7 @@ export function CalibrationPanel() {
                       <Rnd
                         className="calibration-rnd"
                         bounds="parent"
+                        lockAspectRatio={1}
                         size={{ width: qrRectPx.width, height: qrRectPx.height }}
                         position={{ x: qrRectPx.x, y: qrRectPx.y }}
                         onDrag={(_event, data) => {
@@ -746,6 +760,24 @@ export function CalibrationPanel() {
                   }
                 }}
                 disabled={!qrRectPx}
+              />
+            </label>
+
+            <label>
+              Inicio X (mm)
+              <input
+                type="number"
+                value={previewOffsetMm.x}
+                onChange={e => setPreviewOffsetMm(prev => ({ ...prev, x: e.target.value }))}
+              />
+            </label>
+
+            <label>
+              Inicio Y (mm)
+              <input
+                type="number"
+                value={previewOffsetMm.y}
+                onChange={e => setPreviewOffsetMm(prev => ({ ...prev, y: e.target.value }))}
               />
             </label>
 

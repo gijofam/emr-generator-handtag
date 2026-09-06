@@ -1,0 +1,62 @@
+{
+  "templateCalls": [
+    {
+      "file": "node_modules/pdfkit/js/pdfkit.js",
+      "function": "image",
+      "line": 3759,
+      "naturalWidth": 798,
+      "naturalHeight": 1971,
+      "orientationDetected": "vertical",
+      "ignoreOrientation": false,
+      "drawRect": {
+        "x": 0,
+        "y": 0,
+        "width": 187.08661422,
+        "height": 385.51181112
+      },
+      "scaleX": 0.2344443787218045,
+      "scaleY": 0.1955919894063927,
+      "boundingBox": {
+        "x": 28.3464567,
+        "y": 28.346456699999976,
+        "width": 187.08661422,
+        "height": 385.51181112
+      },
+      "preserveAspectRatio": false,
+      "ratios": {
+        "naturalRatio": 0.4048706240487062,
+        "drawRatio": 0.4852941176470588,
+        "bbRatio": 0.4852941176470588
+      }
+    },
+    {
+      "file": "node_modules/pdfkit/js/pdfkit.js",
+      "function": "image",
+      "line": 3759,
+      "naturalWidth": 800,
+      "naturalHeight": 1967,
+      "orientationDetected": "vertical",
+      "ignoreOrientation": false,
+      "drawRect": {
+        "x": 0,
+        "y": 0,
+        "width": 187.08661422,
+        "height": 385.51181112
+      },
+      "scaleX": 0.233858267775,
+      "scaleY": 0.19598973620742247,
+      "boundingBox": {
+        "x": 28.3464567,
+        "y": 28.346456699999976,
+        "width": 187.08661422,
+        "height": 385.51181112
+      },
+      "preserveAspectRatio": false,
+      "ratios": {
+        "naturalRatio": 0.4067107269954245,
+        "drawRatio": 0.4852941176470588,
+        "bbRatio": 0.4852941176470588
+      }
+    }
+  ]
+}

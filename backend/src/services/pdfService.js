@@ -8,6 +8,22 @@ const { calculateLayout } = require('../utils/printLayout');
 const templateStore = require('../utils/templateStore');
 
 class PdfService {
+  getCtmSnapshot(doc) {
+    const ctm = doc?._ctm;
+    if (!ctm) {
+      return null;
+    }
+
+    return {
+      a: ctm.a,
+      b: ctm.b,
+      c: ctm.c,
+      d: ctm.d,
+      e: ctm.e,
+      f: ctm.f,
+    };
+  }
+
   async createPreviewPdf(outputDir, qrRows, printConfig = {}, pdfFileName = 'preview.pdf') {
     fs.mkdirSync(outputDir, { recursive: true });
     console.log('[Trace][pdfService.createPreviewPdf] qrPlacement recibido:', printConfig?.qrPlacement);
@@ -33,7 +49,9 @@ class PdfService {
     doc.pipe(writeStream);
 
     try {
-      if (finalConfig.imposition) {
+      if (finalConfig.previewMode) {
+        await this.drawCalibrationPreviewPdf(doc, qrRows, finalConfig, paperSize);
+      } else if (finalConfig.imposition) {
         await this.drawImposedPdf(doc, qrRows, finalConfig, paperSize);
       } else {
         await this.drawIndividualPdf(doc, qrRows, finalConfig, pageSize);
@@ -104,7 +122,12 @@ class PdfService {
     });
 
     resolved.preserveTemplateOrientation = Boolean(printConfig?.preserveTemplateOrientation);
+    resolved.previewMode = Boolean(printConfig?.previewMode);
     resolved.debugPreviewQr = Boolean(printConfig?.debugPreviewQr);
+    resolved.previewOffsetMm = {
+      x: Number(printConfig?.previewOffsetMm?.x) || 0,
+      y: Number(printConfig?.previewOffsetMm?.y) || 0,
+    };
 
     // If template paths are not explicitly provided in payload/config,
     // always use the currently active templates stored by the system.
@@ -118,6 +141,41 @@ class PdfService {
     return resolved;
   }
 
+  resolvePreviewSlotSize(width, height, templateImageMeta, printConfig) {
+    if (!printConfig?.previewMode || !templateImageMeta) {
+      return { width, height };
+    }
+
+    const isTemplateLandscape = templateImageMeta.width >= templateImageMeta.height;
+    const isSlotLandscape = width >= height;
+
+    if (isTemplateLandscape === isSlotLandscape) {
+      return { width, height };
+    }
+
+    return { width: height, height: width };
+  }
+
+  resolveLocalHandtagSize(printConfig, templateImageMeta) {
+    const handtagWidthMm = Number(printConfig?.handtagWidthMm) || Number(appConfig.printDefaults.handtagWidthMm);
+    const handtagHeightMm = Number(printConfig?.handtagHeightMm) || Number(appConfig.printDefaults.handtagHeightMm);
+    const bleedMm = Number(printConfig?.bleedMm) || Number(appConfig.printDefaults.bleedMm);
+    const effectiveWidthMm = handtagWidthMm + (bleedMm * 2);
+    const effectiveHeightMm = handtagHeightMm + (bleedMm * 2);
+
+    if (!templateImageMeta) {
+      return {
+        width: mmToPoints(effectiveWidthMm),
+        height: mmToPoints(effectiveHeightMm),
+      };
+    }
+
+    return {
+      width: mmToPoints(effectiveWidthMm),
+      height: mmToPoints(effectiveHeightMm),
+    };
+  }
+
   async drawIndividualPdf(doc, csvRows, printConfig, pageSize) {
     const [pageWidth, pageHeight] = pageSize;
     for (let index = 0; index < csvRows.length; index += 1) {
@@ -129,12 +187,51 @@ class PdfService {
     }
   }
 
+  async drawCalibrationPreviewPdf(doc, rows, printConfig, paperSize) {
+    const pageSize = [mmToPoints(paperSize.width), mmToPoints(paperSize.height)];
+    const blockWidthPt = mmToPoints(Number(printConfig.handtagWidthMm));
+    const blockHeightPt = mmToPoints(Number(printConfig.handtagHeightMm));
+    const originXPt = mmToPoints(Number(printConfig?.previewOffsetMm?.x) || 0);
+    const originYPt = mmToPoints(Number(printConfig?.previewOffsetMm?.y) || 0);
+
+    for (let index = 0; index < rows.length; index += 1) {
+      const [code, qrUrl] = rows[index];
+
+      // Render preview in the same local handtag coordinate system as calibration.
+      // Page-level placement is applied once at block origin (0,0).
+      doc.addPage({ size: pageSize, margin: 0 });
+      await this.drawHandtagPage(doc, {
+        side: 'front',
+        code,
+        qrUrl,
+        printConfig,
+        x: originXPt,
+        y: originYPt,
+        width: blockWidthPt,
+        height: blockHeightPt,
+      });
+
+      doc.addPage({ size: pageSize, margin: 0 });
+      await this.drawHandtagPage(doc, {
+        side: 'back',
+        code,
+        qrUrl: null,
+        printConfig,
+        x: originXPt,
+        y: originYPt,
+        width: blockWidthPt,
+        height: blockHeightPt,
+      });
+    }
+  }
+
   async drawImposedPdf(doc, csvRows, printConfig, paperSize) {
+    const previewBleedMm = printConfig?.previewMode ? 0 : printConfig.bleedMm;
     const layout = calculateLayout({
       paperSize,
       margins: printConfig.margins,
       spacing: printConfig.spacingMm,
-      bleed: printConfig.bleedMm,
+      bleed: previewBleedMm,
       handtagWidth: printConfig.handtagWidthMm,
       handtagHeight: printConfig.handtagHeightMm,
       handtagCount: csvRows.length,
@@ -152,6 +249,9 @@ class PdfService {
 
   async drawImposedPage(doc, entries, printConfig, layout, side) {
     let index = 0;
+    const spacingPt = mmToPoints(layout.spacing);
+    const slotStepX = layout.handtagWidthPt + spacingPt;
+    const slotStepY = layout.handtagHeightPt + spacingPt;
     for (let row = 0; row < layout.rows; row += 1) {
       for (let column = 0; column < layout.columns; column += 1) {
         if (index >= entries.length) {
@@ -159,8 +259,8 @@ class PdfService {
         }
 
         const [code, qrUrl] = entries[index];
-        const x = layout.startXPt + (column * (layout.handtagWidthPt + mmToPoints(printConfig.spacingMm)));
-        const y = layout.startYPt + (row * (layout.handtagHeightPt + mmToPoints(printConfig.spacingMm)));
+        const x = layout.startXPt + (column * slotStepX);
+        const y = layout.startYPt + (row * slotStepY);
         await this.drawHandtagPage(doc, {
           side,
           code,
@@ -182,23 +282,28 @@ class PdfService {
     const templateBuffer = resolvedTemplatePath && fs.existsSync(resolvedTemplatePath) ? fs.readFileSync(resolvedTemplatePath) : null;
     const templateImageMeta = this.getTemplateImageMeta(doc, templateBuffer);
 
-    const preserveTemplateOrientation = Boolean(printConfig?.preserveTemplateOrientation);
-    const useVerticalRotation = !preserveTemplateOrientation;
+    // Production slots include bleed; calibration slots represent the final trim size.
+    const bleedPt = printConfig.previewMode ? 0 : mmToPoints(printConfig.bleedMm);
+    const trimRect = { x: bleedPt, y: bleedPt, width: width - 2 * bleedPt, height: height - 2 * bleedPt };
 
+    const ctmBeforeSave = this.getCtmSnapshot(doc);
+    if (side === 'front' && printConfig?.debugPreviewQr) {
+      console.log('[QR Trace] CTM before save():', ctmBeforeSave);
+    }
     doc.save();
-    if (useVerticalRotation) {
-      doc.translate(x, y + height);
-      doc.rotate(-90);
-    } else {
-      doc.translate(x, y);
+    const ctmAfterSave = this.getCtmSnapshot(doc);
+    if (side === 'front' && printConfig?.debugPreviewQr) {
+      console.log('[QR Trace] CTM after save():', ctmAfterSave);
+    }
+    if (side === 'front' && printConfig?.debugPreviewQr) {
+      console.log('[QR Trace] CTM before translate(x, y):', this.getCtmSnapshot(doc));
+    }
+    doc.translate(x, y);
+    if (side === 'front' && printConfig?.debugPreviewQr) {
+      console.log('[QR Trace] CTM after translate(x, y):', this.getCtmSnapshot(doc));
     }
 
-    const localWidth = useVerticalRotation ? height : width;
-    const localHeight = useVerticalRotation ? width : height;
-    const templateSlotRect = { x: 0, y: 0, width: localWidth, height: localHeight };
-    const drawRect = preserveTemplateOrientation
-      ? this.resolveTemplateDrawRect(templateSlotRect, templateImageMeta)
-      : templateSlotRect;
+    const drawRect = this.resolveTemplateDrawRect(trimRect, templateImageMeta);
     const pngRenderRect = {
       x: drawRect.x,
       y: drawRect.y,
@@ -207,10 +312,21 @@ class PdfService {
     };
 
     if (templateBuffer) {
+      if (side === 'front' && printConfig?.debugPreviewQr) {
+        console.log('[QR Trace] Template doc.image args:', {
+          image: 'templateBuffer',
+          x: drawRect.x,
+          y: drawRect.y,
+          options: { width: drawRect.width, height: drawRect.height },
+          ctm: this.getCtmSnapshot(doc),
+        });
+      }
       doc.image(templateBuffer, drawRect.x, drawRect.y, { width: drawRect.width, height: drawRect.height });
     } else {
       this.drawFallbackTemplate(doc, side, drawRect.x, drawRect.y, drawRect.width, drawRect.height, code);
     }
+
+    const ctmAfterTemplateRender = this.getCtmSnapshot(doc);
 
     if (side === 'front' && printConfig?.debugPreviewQr) {
       console.log('Template drawRect:');
@@ -233,8 +349,8 @@ class PdfService {
       console.log('valign: undefined');
       console.log('preserveAspectRatio: undefined');
 
-      const visiblePngOriginX = useVerticalRotation ? drawRect.x : (x + drawRect.x);
-      const visiblePngOriginY = useVerticalRotation ? drawRect.y : (y + drawRect.y);
+      const visiblePngOriginX = x + drawRect.x;
+      const visiblePngOriginY = y + drawRect.y;
       console.log('Template visible PNG origin (points):');
       console.log(`x: ${visiblePngOriginX}`);
       console.log(`y: ${visiblePngOriginY}`);
@@ -242,78 +358,65 @@ class PdfService {
 
     if (side === 'front' && qrUrl) {
       const qrImageBuffer = await qrService.generateQrBuffer(qrUrl);
+      const qrPlacement = printConfig.qrPlacement || {};
+      // Calibration coordinates are millimetres relative to the proportionally fitted PNG.
+      const configuredWidth = mmToPoints(Number(qrPlacement.width));
+      const configuredHeight = mmToPoints(Number(qrPlacement.height));
+      const qrSize = Math.min(configuredWidth, configuredHeight, drawRect.width, drawRect.height);
+      if (!Number.isFinite(qrSize) || qrSize <= 0) {
+        throw new Error('QR dimensions must be positive.');
+      }
+      const qrX = drawRect.x + Math.max(0, Math.min(mmToPoints(Number(qrPlacement.x)) || 0, drawRect.width - qrSize));
+      const qrY = drawRect.y + Math.max(0, Math.min(mmToPoints(Number(qrPlacement.y)) || 0, drawRect.height - qrSize));
+      const qrWidth = qrSize;
+      const qrHeight = qrSize;
 
-      if (preserveTemplateOrientation) {
-        const qrRect = this.resolveQrRectWithinDrawRect(drawRect, printConfig, templateImageMeta);
-        this.assertSameDrawRect(drawRect, qrRect.drawRect);
-        if (printConfig?.debugPreviewQr) {
-          const qrPlacement = printConfig.qrPlacement || {};
-          const mmWidth = Number(qrPlacement.width);
-          const mmHeight = Number(qrPlacement.height);
-          const scaleX = Number.isFinite(mmWidth) && mmWidth !== 0 ? (qrRect.width / mmWidth) : 0;
-          const scaleY = Number.isFinite(mmHeight) && mmHeight !== 0 ? (qrRect.height / mmHeight) : 0;
+      if (printConfig?.debugPreviewQr) {
+        const mmWidth = Number(qrPlacement.width);
+        const mmHeight = Number(qrPlacement.height);
+        const scaleX = Number.isFinite(mmWidth) && mmWidth !== 0 ? (qrWidth / mmWidth) : 0;
+        const scaleY = Number.isFinite(mmHeight) && mmHeight !== 0 ? (qrHeight / mmHeight) : 0;
 
-          console.log('QR (mm):');
-          console.log(`x: ${Number(qrPlacement.x)}`);
-          console.log(`y: ${Number(qrPlacement.y)}`);
-          console.log(`width: ${mmWidth}`);
-          console.log(`height: ${mmHeight}`);
-          console.log('QR (points):');
-          console.log(`x: ${qrRect.x}`);
-          console.log(`y: ${qrRect.y}`);
-          console.log(`width: ${qrRect.width}`);
-          console.log(`height: ${qrRect.height}`);
-          console.log('qrRect calculado:');
-          console.log(`x: ${qrRect.x}`);
-          console.log(`y: ${qrRect.y}`);
-          console.log(`width: ${qrRect.width}`);
-          console.log(`height: ${qrRect.height}`);
+        console.log('QR (mm):');
+        console.log(`x: ${Number(qrPlacement.x)}`);
+        console.log(`y: ${Number(qrPlacement.y)}`);
+        console.log(`width: ${mmWidth}`);
+        console.log(`height: ${mmHeight}`);
+        console.log('QR (points):');
+        console.log(`x: ${qrX}`);
+        console.log(`y: ${qrY}`);
+        console.log(`width: ${qrWidth}`);
+        console.log(`height: ${qrHeight}`);
+        console.log('[QR Trace] Same graphics context as template render:', JSON.stringify(this.getCtmSnapshot(doc)) === JSON.stringify(ctmAfterTemplateRender));
+        console.log('[QR Trace] CTM before QR doc.image:', this.getCtmSnapshot(doc));
+        console.log('[QR Trace] Final QR render rect just before doc.image:');
+        console.log(`x final: ${qrX}`);
+        console.log(`y final: ${qrY}`);
+        console.log(`width final: ${qrWidth}`);
+        console.log(`height final: ${qrHeight}`);
+        console.log('[QR Trace] QR doc.image arguments:', {
+          image: 'qrImageBuffer',
+          x: qrX,
+          y: qrY,
+          options: { width: qrWidth, height: qrHeight },
+        });
+        console.log(`scaleX: ${scaleX}`);
+        console.log(`scaleY: ${scaleY}`);
+      }
 
-          const expectedQrX = drawRect.x + mmToPoints(Number(qrPlacement.x));
-          const expectedQrY = drawRect.y + mmToPoints(Number(qrPlacement.y));
-          const offsetXPt = qrRect.x - expectedQrX;
-          const offsetYPt = qrRect.y - expectedQrY;
-          console.log(`qrX formula exacta (drawRect.x + mmToPoints(qrPlacement.x)): ${expectedQrX}`);
-          console.log(`qrY formula exacta (drawRect.y + mmToPoints(qrPlacement.y)): ${expectedQrY}`);
-          console.log(`qrOffsetX(pt): ${offsetXPt}`);
-          console.log(`qrOffsetY(pt): ${offsetYPt}`);
-          console.log(`qrOffsetX(mm): ${offsetXPt / 2.83464567}`);
-          console.log(`qrOffsetY(mm): ${offsetYPt / 2.83464567}`);
-          console.log('QR reference rect source: drawRect');
-          console.log(`scaleX: ${scaleX}`);
-          console.log(`scaleY: ${scaleY}`);
-        }
-        doc.image(qrImageBuffer, qrRect.x, qrRect.y, { width: qrRect.width, height: qrRect.height });
-      } else {
-        const qrPlacement = printConfig.qrPlacement || {};
-        const qrX = mmToPoints(Number(qrPlacement.x));
-        const qrY = mmToPoints(Number(qrPlacement.y));
-        const qrWidth = mmToPoints(Number(qrPlacement.width));
-        const qrHeight = mmToPoints(Number(qrPlacement.height));
-        if (printConfig?.debugPreviewQr) {
-          const mmWidth = Number(qrPlacement.width);
-          const mmHeight = Number(qrPlacement.height);
-          const scaleX = Number.isFinite(mmWidth) && mmWidth !== 0 ? (qrWidth / mmWidth) : 0;
-          const scaleY = Number.isFinite(mmHeight) && mmHeight !== 0 ? (qrHeight / mmHeight) : 0;
-
-          console.log('QR (mm):');
-          console.log(`x: ${Number(qrPlacement.x)}`);
-          console.log(`y: ${Number(qrPlacement.y)}`);
-          console.log(`width: ${mmWidth}`);
-          console.log(`height: ${mmHeight}`);
-          console.log('QR (points):');
-          console.log(`x: ${qrX}`);
-          console.log(`y: ${qrY}`);
-          console.log(`width: ${qrWidth}`);
-          console.log(`height: ${qrHeight}`);
-          console.log(`scaleX: ${scaleX}`);
-          console.log(`scaleY: ${scaleY}`);
-        }
-        doc.image(qrImageBuffer, qrX, qrY, { width: qrWidth, height: qrHeight });
+      doc.image(qrImageBuffer, qrX, qrY, { width: qrWidth, height: qrHeight });
+      if (printConfig?.debugPreviewQr) {
+        console.log('[QR Trace] CTM after QR doc.image:', this.getCtmSnapshot(doc));
       }
     }
 
+    if (side === 'front' && printConfig?.debugPreviewQr) {
+      console.log('[QR Trace] CTM before restore():', this.getCtmSnapshot(doc));
+    }
     doc.restore();
+    if (side === 'front' && printConfig?.debugPreviewQr) {
+      console.log('[QR Trace] CTM after restore():', this.getCtmSnapshot(doc));
+    }
   }
 
   getTemplateImageMeta(doc, templateBuffer) {

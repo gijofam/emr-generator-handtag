@@ -16,14 +16,56 @@ function calculateLayout({ paperSize, margins = {}, spacing = DEFAULT_SPACING_MM
   const resolvedSpacing = spacing ?? DEFAULT_SPACING_MM;
   const resolvedBleed = bleed ?? DEFAULT_BLEED_MM;
 
-  const effectiveWidth = handtagWidth + (resolvedBleed * 2);
-  const effectiveHeight = handtagHeight + (resolvedBleed * 2);
+  const dimensions = [resolvedPaper.width, resolvedPaper.height, handtagWidth, handtagHeight];
+  const offsets = [...Object.values(resolvedMargins), resolvedSpacing, resolvedBleed];
+  if (dimensions.some(value => !Number.isFinite(value) || value <= 0)
+    || offsets.some(value => !Number.isFinite(value) || value < 0)) {
+    throw new Error('Print dimensions must be positive and margins, bleed and spacing non-negative.');
+  }
 
   const usableWidth = resolvedPaper.width - resolvedMargins.left - resolvedMargins.right;
   const usableHeight = resolvedPaper.height - resolvedMargins.top - resolvedMargins.bottom;
 
-  const columns = Math.max(1, Math.floor((usableWidth + resolvedSpacing) / (effectiveWidth + resolvedSpacing)));
-  const rows = Math.max(1, Math.floor((usableHeight + resolvedSpacing) / (effectiveHeight + resolvedSpacing)));
+  const orientationCandidates = [
+    { width: handtagWidth, height: handtagHeight },
+    { width: handtagHeight, height: handtagWidth },
+  ];
+
+  let bestLayout = null;
+  for (const candidate of orientationCandidates) {
+    const candidateEffectiveWidth = candidate.width + (resolvedBleed * 2);
+    const candidateEffectiveHeight = candidate.height + (resolvedBleed * 2);
+    const candidateColumns = Math.max(0, Math.floor((usableWidth + resolvedSpacing) / (candidateEffectiveWidth + resolvedSpacing)));
+    const candidateRows = Math.max(0, Math.floor((usableHeight + resolvedSpacing) / (candidateEffectiveHeight + resolvedSpacing)));
+    const candidatePerPage = candidateColumns * candidateRows;
+
+    const shouldReplace = !bestLayout
+      || candidatePerPage > bestLayout.handtagsPerPage
+      || (candidatePerPage === bestLayout.handtagsPerPage && candidate.height > candidate.width);
+
+    if (shouldReplace) {
+      bestLayout = {
+        handtagWidth: candidate.width,
+        handtagHeight: candidate.height,
+        effectiveWidth: candidateEffectiveWidth,
+        effectiveHeight: candidateEffectiveHeight,
+        columns: candidateColumns,
+        rows: candidateRows,
+        handtagsPerPage: candidatePerPage,
+      };
+    }
+  }
+
+  if (!bestLayout || bestLayout.handtagsPerPage === 0) {
+    throw new Error('No handtag fits within the paper size and margins.');
+  }
+
+  const handtagWidthMm = bestLayout.handtagWidth;
+  const handtagHeightMm = bestLayout.handtagHeight;
+  const effectiveWidth = bestLayout.effectiveWidth;
+  const effectiveHeight = bestLayout.effectiveHeight;
+  const columns = bestLayout.columns;
+  const rows = bestLayout.rows;
 
   const handtagsPerPage = columns * rows;
   const totalArea = effectiveWidth * effectiveHeight;
@@ -36,12 +78,13 @@ function calculateLayout({ paperSize, margins = {}, spacing = DEFAULT_SPACING_MM
     margins: resolvedMargins,
     spacing: resolvedSpacing,
     bleed: resolvedBleed,
-    handtagWidthMm: handtagWidth,
-    handtagHeightMm: handtagHeight,
+    handtagWidthMm,
+    handtagHeightMm,
     effectiveWidthMm: effectiveWidth,
     effectiveHeightMm: effectiveHeight,
     usableWidthMm: usableWidth,
     usableHeightMm: usableHeight,
+    orientation: handtagHeightMm >= handtagWidthMm ? 'vertical' : 'horizontal',
     columns,
     rows,
     handtagsPerPage,

@@ -1,0 +1,558 @@
+{
+  "preview": {
+    "calculateLayout": [],
+    "drawImposedPdf": [],
+    "drawHandtagPage": [
+      {
+        "file": "src/services/pdfService.js",
+        "function": "drawHandtagPage",
+        "input": {
+          "x": 0,
+          "y": 0,
+          "width": 453.5433072,
+          "height": 184.25196855
+        },
+        "templateImageMeta": {
+          "width": 798,
+          "height": 1971
+        },
+        "naturalWidth": 798,
+        "naturalHeight": 1971,
+        "detectedOrientation": "vertical"
+      }
+    ],
+    "resolveLocalHandtagSize": [
+      {
+        "file": "src/services/pdfService.js",
+        "function": "resolveLocalHandtagSize",
+        "input": {
+          "handtagWidthMm": 160,
+          "handtagHeightMm": 65,
+          "bleedMm": 3,
+          "templateImageMeta": {
+            "width": 798,
+            "height": 1971
+          }
+        },
+        "output": {
+          "width": 470.55118122,
+          "height": 201.25984257
+        },
+        "comparison": {
+          "expectedWidth": 470.55118122,
+          "expectedHeight": 201.25984257,
+          "sameWidth": true,
+          "sameHeight": true,
+          "sameOrientation": true
+        }
+      },
+      {
+        "file": "src/services/pdfService.js",
+        "function": "resolveLocalHandtagSize",
+        "input": {
+          "handtagWidthMm": 160,
+          "handtagHeightMm": 65,
+          "bleedMm": 3,
+          "templateImageMeta": {
+            "width": 800,
+            "height": 1967
+          }
+        },
+        "output": {
+          "width": 470.55118122,
+          "height": 201.25984257
+        },
+        "comparison": {
+          "expectedWidth": 470.55118122,
+          "expectedHeight": 201.25984257,
+          "sameWidth": true,
+          "sameHeight": true,
+          "sameOrientation": true
+        }
+      }
+    ],
+    "templateSlotRect": [],
+    "drawRect": [],
+    "imageBefore": [],
+    "imageReceived": [
+      {
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "PDFDocument.image",
+        "received": {
+          "srcType": "buffer",
+          "x": 0,
+          "y": 0,
+          "options": {
+            "width": 470.55118122,
+            "height": 201.25984257
+          }
+        },
+        "ctmBefore": {},
+        "ctmAfter": {},
+        "transformFinal": {},
+        "scaleApplied": {
+          "width": 470.55118122,
+          "height": 201.25984257
+        },
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 470.55118122,
+          "height": 201.25984257
+        }
+      },
+      {
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "PDFDocument.image",
+        "received": {
+          "srcType": "buffer",
+          "x": 56.6929134,
+          "y": 51.02362206,
+          "options": {
+            "width": 85.0393701,
+            "height": 85.0393701
+          }
+        },
+        "ctmBefore": {},
+        "ctmAfter": {},
+        "transformFinal": {},
+        "scaleApplied": {
+          "width": 85.0393701,
+          "height": 85.0393701
+        },
+        "boundingBox": {
+          "x": 56.6929134,
+          "y": 51.02362206,
+          "width": 85.0393701,
+          "height": 85.0393701
+        }
+      },
+      {
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "PDFDocument.image",
+        "received": {
+          "srcType": "buffer",
+          "x": 0,
+          "y": 0,
+          "options": {
+            "width": 470.55118122,
+            "height": 201.25984257
+          }
+        },
+        "ctmBefore": {},
+        "ctmAfter": {},
+        "transformFinal": {},
+        "scaleApplied": {
+          "width": 470.55118122,
+          "height": 201.25984257
+        },
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 470.55118122,
+          "height": 201.25984257
+        }
+      }
+    ],
+    "imageAfter": [
+      {
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "PDFDocument.image",
+        "received": {
+          "srcType": "buffer",
+          "x": 0,
+          "y": 0,
+          "options": {
+            "width": 470.55118122,
+            "height": 201.25984257
+          }
+        },
+        "ctmBefore": {},
+        "ctmAfter": {},
+        "transformFinal": {},
+        "scaleApplied": {
+          "width": 470.55118122,
+          "height": 201.25984257
+        },
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 470.55118122,
+          "height": 201.25984257
+        }
+      },
+      {
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "PDFDocument.image",
+        "received": {
+          "srcType": "buffer",
+          "x": 56.6929134,
+          "y": 51.02362206,
+          "options": {
+            "width": 85.0393701,
+            "height": 85.0393701
+          }
+        },
+        "ctmBefore": {},
+        "ctmAfter": {},
+        "transformFinal": {},
+        "scaleApplied": {
+          "width": 85.0393701,
+          "height": 85.0393701
+        },
+        "boundingBox": {
+          "x": 56.6929134,
+          "y": 51.02362206,
+          "width": 85.0393701,
+          "height": 85.0393701
+        }
+      },
+      {
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "PDFDocument.image",
+        "received": {
+          "srcType": "buffer",
+          "x": 0,
+          "y": 0,
+          "options": {
+            "width": 470.55118122,
+            "height": 201.25984257
+          }
+        },
+        "ctmBefore": {},
+        "ctmAfter": {},
+        "transformFinal": {},
+        "scaleApplied": {
+          "width": 470.55118122,
+          "height": 201.25984257
+        },
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 470.55118122,
+          "height": 201.25984257
+        }
+      }
+    ]
+  },
+  "production": {
+    "calculateLayout": [
+      {
+        "file": "src/utils/printLayout.js",
+        "function": "calculateLayout",
+        "input": {
+          "paperSize": {
+            "width": 210,
+            "height": 297
+          },
+          "margins": {
+            "top": 10,
+            "right": 10,
+            "bottom": 10,
+            "left": 10
+          },
+          "spacing": 3,
+          "bleed": 3,
+          "handtagWidth": 160,
+          "handtagHeight": 65,
+          "handtagCount": 1
+        },
+        "output": {
+          "pageWidthMm": 210,
+          "pageHeightMm": 297,
+          "usableWidth": 190,
+          "usableHeight": 277,
+          "effectiveWidth": 166,
+          "effectiveHeight": 71,
+          "columns": 1,
+          "rows": 3,
+          "slotWidth": 470.55118122,
+          "slotHeight": 201.25984257,
+          "slotX": 28.3464567,
+          "slotY": 28.3464567,
+          "handtagWidthPt": 470.55118122,
+          "handtagHeightPt": 201.25984257,
+          "orientation": "horizontal"
+        }
+      }
+    ],
+    "drawImposedPdf": [
+      {
+        "file": "src/services/pdfService.js",
+        "function": "drawImposedPdf",
+        "firstHandtag": {
+          "slotX": 28.3464567,
+          "slotY": 28.3464567,
+          "width": 470.55118122,
+          "height": 201.25984257,
+          "rotation": 0,
+          "previewMode": false,
+          "printConfig": {
+            "handtagWidthMm": 160,
+            "handtagHeightMm": 65,
+            "bleedMm": 3,
+            "marginMm": 10,
+            "spacingMm": 3,
+            "paperSize": "A4",
+            "paperWidthMm": 210,
+            "paperHeightMm": 297,
+            "imposition": true,
+            "margins": {
+              "top": 10,
+              "right": 10,
+              "bottom": 10,
+              "left": 10
+            },
+            "qrPlacement": {
+              "x": 20,
+              "y": 18,
+              "width": 30,
+              "height": 30
+            },
+            "templateFrontPath": "D:\\gipa\\EMR\\ECOSISTEMA\\EMR-Handtag-Generator\\backend\\output\\template-assets\\active-front.png",
+            "templateBackPath": "D:\\gipa\\EMR\\ECOSISTEMA\\EMR-Handtag-Generator\\backend\\output\\template-assets\\active-back.png",
+            "preserveTemplateOrientation": false,
+            "previewMode": false,
+            "debugPreviewQr": true,
+            "previewOffsetMm": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        }
+      }
+    ],
+    "drawHandtagPage": [
+      {
+        "file": "src/services/pdfService.js",
+        "function": "drawHandtagPage",
+        "input": {
+          "x": 28.3464567,
+          "y": 28.3464567,
+          "width": 470.55118122,
+          "height": 201.25984257
+        },
+        "templateImageMeta": {
+          "width": 798,
+          "height": 1971
+        },
+        "naturalWidth": 798,
+        "naturalHeight": 1971,
+        "detectedOrientation": "vertical"
+      }
+    ],
+    "resolveLocalHandtagSize": [
+      {
+        "file": "src/services/pdfService.js",
+        "function": "resolveLocalHandtagSize",
+        "input": {
+          "handtagWidthMm": 160,
+          "handtagHeightMm": 65,
+          "bleedMm": 3,
+          "templateImageMeta": {
+            "width": 798,
+            "height": 1971
+          }
+        },
+        "output": {
+          "width": 470.55118122,
+          "height": 201.25984257
+        },
+        "comparison": {
+          "expectedWidth": 470.55118122,
+          "expectedHeight": 201.25984257,
+          "sameWidth": true,
+          "sameHeight": true,
+          "sameOrientation": true
+        }
+      },
+      {
+        "file": "src/services/pdfService.js",
+        "function": "resolveLocalHandtagSize",
+        "input": {
+          "handtagWidthMm": 160,
+          "handtagHeightMm": 65,
+          "bleedMm": 3,
+          "templateImageMeta": {
+            "width": 800,
+            "height": 1967
+          }
+        },
+        "output": {
+          "width": 470.55118122,
+          "height": 201.25984257
+        },
+        "comparison": {
+          "expectedWidth": 470.55118122,
+          "expectedHeight": 201.25984257,
+          "sameWidth": true,
+          "sameHeight": true,
+          "sameOrientation": true
+        }
+      }
+    ],
+    "templateSlotRect": [],
+    "drawRect": [],
+    "imageBefore": [],
+    "imageReceived": [
+      {
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "PDFDocument.image",
+        "received": {
+          "srcType": "buffer",
+          "x": 0,
+          "y": 0,
+          "options": {
+            "width": 470.55118122,
+            "height": 201.25984257
+          }
+        },
+        "ctmBefore": {},
+        "ctmAfter": {},
+        "transformFinal": {},
+        "scaleApplied": {
+          "width": 470.55118122,
+          "height": 201.25984257
+        },
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 470.55118122,
+          "height": 201.25984257
+        }
+      },
+      {
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "PDFDocument.image",
+        "received": {
+          "srcType": "buffer",
+          "x": 56.6929134,
+          "y": 51.02362206,
+          "options": {
+            "width": 85.0393701,
+            "height": 85.0393701
+          }
+        },
+        "ctmBefore": {},
+        "ctmAfter": {},
+        "transformFinal": {},
+        "scaleApplied": {
+          "width": 85.0393701,
+          "height": 85.0393701
+        },
+        "boundingBox": {
+          "x": 56.6929134,
+          "y": 51.02362206,
+          "width": 85.0393701,
+          "height": 85.0393701
+        }
+      },
+      {
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "PDFDocument.image",
+        "received": {
+          "srcType": "buffer",
+          "x": 0,
+          "y": 0,
+          "options": {
+            "width": 470.55118122,
+            "height": 201.25984257
+          }
+        },
+        "ctmBefore": {},
+        "ctmAfter": {},
+        "transformFinal": {},
+        "scaleApplied": {
+          "width": 470.55118122,
+          "height": 201.25984257
+        },
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 470.55118122,
+          "height": 201.25984257
+        }
+      }
+    ],
+    "imageAfter": [
+      {
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "PDFDocument.image",
+        "received": {
+          "srcType": "buffer",
+          "x": 0,
+          "y": 0,
+          "options": {
+            "width": 470.55118122,
+            "height": 201.25984257
+          }
+        },
+        "ctmBefore": {},
+        "ctmAfter": {},
+        "transformFinal": {},
+        "scaleApplied": {
+          "width": 470.55118122,
+          "height": 201.25984257
+        },
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 470.55118122,
+          "height": 201.25984257
+        }
+      },
+      {
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "PDFDocument.image",
+        "received": {
+          "srcType": "buffer",
+          "x": 56.6929134,
+          "y": 51.02362206,
+          "options": {
+            "width": 85.0393701,
+            "height": 85.0393701
+          }
+        },
+        "ctmBefore": {},
+        "ctmAfter": {},
+        "transformFinal": {},
+        "scaleApplied": {
+          "width": 85.0393701,
+          "height": 85.0393701
+        },
+        "boundingBox": {
+          "x": 56.6929134,
+          "y": 51.02362206,
+          "width": 85.0393701,
+          "height": 85.0393701
+        }
+      },
+      {
+        "file": "node_modules/pdfkit/js/pdfkit.js",
+        "function": "PDFDocument.image",
+        "received": {
+          "srcType": "buffer",
+          "x": 0,
+          "y": 0,
+          "options": {
+            "width": 470.55118122,
+            "height": 201.25984257
+          }
+        },
+        "ctmBefore": {},
+        "ctmAfter": {},
+        "transformFinal": {},
+        "scaleApplied": {
+          "width": 470.55118122,
+          "height": 201.25984257
+        },
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 470.55118122,
+          "height": 201.25984257
+        }
+      }
+    ]
+  }
+}

@@ -2,11 +2,11 @@ const fs = require('fs');
 const path = require('path');
 
 const MM_TO_POINTS = 2.83464567;
-const DEFAULT_HANDTAG_WIDTH_MM = 160;
-const DEFAULT_HANDTAG_HEIGHT_MM = 65;
-const DEFAULT_BLEED_MM = 3;
-const DEFAULT_MARGIN_MM = 10;
-const DEFAULT_SPACING_MM = 3;
+const DEFAULT_HANDTAG_WIDTH_MM = 65;
+const DEFAULT_HANDTAG_HEIGHT_MM = 140;
+const DEFAULT_BLEED_MM = 2;
+const DEFAULT_MARGIN_MM = 0;
+const DEFAULT_SPACING_MM = 1;
 
 function mmToPoints(mm) {
   return mm * MM_TO_POINTS;
@@ -33,8 +33,8 @@ function getPaperSize(sizeKey, customSize = null) {
 
 function getDefaultQrPlacement() {
   return {
-    x: 20,
-    y: 18,
+    x: 13,
+    y: 74,
     width: 30,
     height: 30,
   };

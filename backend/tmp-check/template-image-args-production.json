@@ -1,0 +1,53 @@
+{
+  "totalTemplateCalls": 2,
+  "calls": [
+    {
+      "x": 0,
+      "y": 0,
+      "options": {
+        "width": 187.08661422,
+        "height": 385.51181112
+      },
+      "optionKeys": [
+        "width",
+        "height"
+      ],
+      "file": "src/services/pdfService.js",
+      "function": "drawHandtagPage",
+      "line": 320,
+      "side": "front"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "options": {
+        "width": 187.08661422,
+        "height": 385.51181112
+      },
+      "optionKeys": [
+        "width",
+        "height"
+      ],
+      "file": "src/services/pdfService.js",
+      "function": "drawHandtagPage",
+      "line": 320,
+      "side": "back"
+    }
+  ],
+  "executedInProduction": {
+    "x": 0,
+    "y": 0,
+    "options": {
+      "width": 187.08661422,
+      "height": 385.51181112
+    },
+    "optionKeys": [
+      "width",
+      "height"
+    ],
+    "file": "src/services/pdfService.js",
+    "function": "drawHandtagPage",
+    "line": 320,
+    "side": "front"
+  }
+}

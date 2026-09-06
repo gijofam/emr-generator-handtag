@@ -1,0 +1,51 @@
+{
+  "totalExecutions": 2,
+  "executions": [
+    {
+      "callNumber": 1,
+      "file": "src/services/pdfService.js",
+      "function": "drawHandtagPage",
+      "line": 276,
+      "side": "front",
+      "pageIndex": 0,
+      "handtagIndex": 0,
+      "x": 28.3464567,
+      "y": 28.3464567,
+      "width": 187.08661422,
+      "height": 385.51181112,
+      "stack": [
+        "at pdfService.drawHandtagPage ([eval]:1:716)",
+        "at PdfService.drawImposedPage (D:\\gipa\\EMR\\ECOSISTEMA\\EMR-Handtag-Generator\\backend\\src\\services\\pdfService.js:261:20)",
+        "at PdfService.drawImposedPdf (D:\\gipa\\EMR\\ECOSISTEMA\\EMR-Handtag-Generator\\backend\\src\\services\\pdfService.js:244:18)",
+        "at PdfService.createPdfBundle (D:\\gipa\\EMR\\ECOSISTEMA\\EMR-Handtag-Generator\\backend\\src\\services\\pdfService.js:92:20)",
+        "at [eval]:1:1682",
+        "at [eval]:1:2258",
+        "at runScriptInThisContext (node:internal/vm:209:10)",
+        "at node:internal/process/execution:446:12",
+        "at [eval]-wrapper:6:24",
+        "at runScriptInContext (node:internal/process/execution:444:60)"
+      ]
+    },
+    {
+      "callNumber": 2,
+      "file": "src/services/pdfService.js",
+      "function": "drawHandtagPage",
+      "line": 276,
+      "side": "back",
+      "pageIndex": 1,
+      "handtagIndex": 0,
+      "x": 28.3464567,
+      "y": 28.3464567,
+      "width": 187.08661422,
+      "height": 385.51181112,
+      "stack": [
+        "at pdfService.drawHandtagPage ([eval]:1:716)",
+        "at PdfService.drawImposedPage (D:\\gipa\\EMR\\ECOSISTEMA\\EMR-Handtag-Generator\\backend\\src\\services\\pdfService.js:261:20)",
+        "at PdfService.drawImposedPdf (D:\\gipa\\EMR\\ECOSISTEMA\\EMR-Handtag-Generator\\backend\\src\\services\\pdfService.js:246:18)",
+        "at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+        "at async PdfService.createPdfBundle (D:\\gipa\\EMR\\ECOSISTEMA\\EMR-Handtag-Generator\\backend\\src\\services\\pdfService.js:92:9)",
+        "at async [eval]:1:1665"
+      ]
+    }
+  ]
+}

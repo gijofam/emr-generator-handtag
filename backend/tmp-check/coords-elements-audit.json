@@ -1,0 +1,35 @@
+{
+  "rows": [
+    {
+      "element": "PNG",
+      "variable": "drawRect",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 187.08661422,
+        "height": 385.51181112
+      }
+    },
+    {
+      "element": "QR",
+      "variable": "qrPlacement -> qrX/qrY/qrWidth/qrHeight",
+      "rect": {
+        "x": 56.6929134,
+        "y": 51.02362206,
+        "width": 85.0393701,
+        "height": 85.0393701
+      }
+    },
+    {
+      "element": "PNG",
+      "variable": "drawRect",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 187.08661422,
+        "height": 385.51181112
+      }
+    }
+  ],
+  "fallbackCalls": 0
+}

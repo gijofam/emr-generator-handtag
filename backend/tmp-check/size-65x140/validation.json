@@ -1,0 +1,1485 @@
+{
+  "layout": {
+    "paper": {
+      "width": 210,
+      "height": 297
+    },
+    "margins": {
+      "top": 0,
+      "right": 0,
+      "bottom": 0,
+      "left": 0
+    },
+    "spacing": 1,
+    "bleed": 2,
+    "handtagWidthMm": 65,
+    "handtagHeightMm": 140,
+    "effectiveWidthMm": 69,
+    "effectiveHeightMm": 144,
+    "usableWidthMm": 210,
+    "usableHeightMm": 297,
+    "orientation": "vertical",
+    "columns": 3,
+    "rows": 2,
+    "handtagsPerPage": 6,
+    "pagesRequired": 1,
+    "utilizationPercent": 95.58,
+    "handtagWidthPt": 195.59055123,
+    "handtagHeightPt": 408.18897648,
+    "pageWidthPt": 595.2755907,
+    "pageHeightPt": 841.88976399,
+    "usableWidthPt": 595.2755907,
+    "usableHeightPt": 841.88976399,
+    "startXPt": 0,
+    "startYPt": 0
+  },
+  "horizontal": {
+    "columns": 1,
+    "rows": 4,
+    "capacity": 4
+  },
+  "results": [
+    {
+      "count": 1,
+      "pages": 2,
+      "records": [
+        {
+          "page": 0,
+          "side": "front",
+          "code": "CHECK-G8O2V6",
+          "qrUrl": "https://emr.pe/c/CHECK-G8O2V6",
+          "slot": {
+            "x": 0,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "side": "back",
+          "code": "CHECK-G8O2V6",
+          "qrUrl": null,
+          "slot": {
+            "x": 0,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        }
+      ],
+      "pdfPath": "D:\\gipa\\EMR\\ECOSISTEMA\\EMR-Handtag-Generator\\backend\\tmp-check\\size-65x140\\case-1\\CHECK_case-1.pdf"
+    },
+    {
+      "count": 6,
+      "pages": 2,
+      "records": [
+        {
+          "page": 0,
+          "side": "front",
+          "code": "CHECK-S1E2V7",
+          "qrUrl": "https://emr.pe/c/CHECK-S1E2V7",
+          "slot": {
+            "x": 0,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 0,
+          "side": "front",
+          "code": "CHECK-U3A1C3",
+          "qrUrl": "https://emr.pe/c/CHECK-U3A1C3",
+          "slot": {
+            "x": 198.42519689999997,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 0,
+          "side": "front",
+          "code": "CHECK-O5S9W8",
+          "qrUrl": "https://emr.pe/c/CHECK-O5S9W8",
+          "slot": {
+            "x": 396.85039379999995,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 0,
+          "side": "front",
+          "code": "CHECK-N3H0J3",
+          "qrUrl": "https://emr.pe/c/CHECK-N3H0J3",
+          "slot": {
+            "x": 0,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 0,
+          "side": "front",
+          "code": "CHECK-W3V9T2",
+          "qrUrl": "https://emr.pe/c/CHECK-W3V9T2",
+          "slot": {
+            "x": 198.42519689999997,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 0,
+          "side": "front",
+          "code": "CHECK-O4C2V9",
+          "qrUrl": "https://emr.pe/c/CHECK-O4C2V9",
+          "slot": {
+            "x": 396.85039379999995,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "side": "back",
+          "code": "CHECK-S1E2V7",
+          "qrUrl": null,
+          "slot": {
+            "x": 0,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "side": "back",
+          "code": "CHECK-U3A1C3",
+          "qrUrl": null,
+          "slot": {
+            "x": 198.42519689999997,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "side": "back",
+          "code": "CHECK-O5S9W8",
+          "qrUrl": null,
+          "slot": {
+            "x": 396.85039379999995,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "side": "back",
+          "code": "CHECK-N3H0J3",
+          "qrUrl": null,
+          "slot": {
+            "x": 0,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "side": "back",
+          "code": "CHECK-W3V9T2",
+          "qrUrl": null,
+          "slot": {
+            "x": 198.42519689999997,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "side": "back",
+          "code": "CHECK-O4C2V9",
+          "qrUrl": null,
+          "slot": {
+            "x": 396.85039379999995,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        }
+      ],
+      "pdfPath": "D:\\gipa\\EMR\\ECOSISTEMA\\EMR-Handtag-Generator\\backend\\tmp-check\\size-65x140\\case-6\\CHECK_case-6.pdf"
+    },
+    {
+      "count": 7,
+      "pages": 4,
+      "records": [
+        {
+          "page": 0,
+          "side": "front",
+          "code": "CHECK-B5C2S2",
+          "qrUrl": "https://emr.pe/c/CHECK-B5C2S2",
+          "slot": {
+            "x": 0,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 0,
+          "side": "front",
+          "code": "CHECK-Q7D4Z6",
+          "qrUrl": "https://emr.pe/c/CHECK-Q7D4Z6",
+          "slot": {
+            "x": 198.42519689999997,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 0,
+          "side": "front",
+          "code": "CHECK-E5R9K4",
+          "qrUrl": "https://emr.pe/c/CHECK-E5R9K4",
+          "slot": {
+            "x": 396.85039379999995,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 0,
+          "side": "front",
+          "code": "CHECK-J5K3O0",
+          "qrUrl": "https://emr.pe/c/CHECK-J5K3O0",
+          "slot": {
+            "x": 0,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 0,
+          "side": "front",
+          "code": "CHECK-Q4R9H8",
+          "qrUrl": "https://emr.pe/c/CHECK-Q4R9H8",
+          "slot": {
+            "x": 198.42519689999997,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 0,
+          "side": "front",
+          "code": "CHECK-P1W0H6",
+          "qrUrl": "https://emr.pe/c/CHECK-P1W0H6",
+          "slot": {
+            "x": 396.85039379999995,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "side": "back",
+          "code": "CHECK-B5C2S2",
+          "qrUrl": null,
+          "slot": {
+            "x": 0,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "side": "back",
+          "code": "CHECK-Q7D4Z6",
+          "qrUrl": null,
+          "slot": {
+            "x": 198.42519689999997,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "side": "back",
+          "code": "CHECK-E5R9K4",
+          "qrUrl": null,
+          "slot": {
+            "x": 396.85039379999995,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "side": "back",
+          "code": "CHECK-J5K3O0",
+          "qrUrl": null,
+          "slot": {
+            "x": 0,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "side": "back",
+          "code": "CHECK-Q4R9H8",
+          "qrUrl": null,
+          "slot": {
+            "x": 198.42519689999997,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "side": "back",
+          "code": "CHECK-P1W0H6",
+          "qrUrl": null,
+          "slot": {
+            "x": 396.85039379999995,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 2,
+          "side": "front",
+          "code": "CHECK-F1K2R5",
+          "qrUrl": "https://emr.pe/c/CHECK-F1K2R5",
+          "slot": {
+            "x": 0,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 3,
+          "side": "back",
+          "code": "CHECK-F1K2R5",
+          "qrUrl": null,
+          "slot": {
+            "x": 0,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        }
+      ],
+      "pdfPath": "D:\\gipa\\EMR\\ECOSISTEMA\\EMR-Handtag-Generator\\backend\\tmp-check\\size-65x140\\case-7\\CHECK_case-7.pdf"
+    },
+    {
+      "count": 12,
+      "pages": 4,
+      "records": [
+        {
+          "page": 0,
+          "side": "front",
+          "code": "CHECK-B4I2J0",
+          "qrUrl": "https://emr.pe/c/CHECK-B4I2J0",
+          "slot": {
+            "x": 0,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 0,
+          "side": "front",
+          "code": "CHECK-T3Y1Q9",
+          "qrUrl": "https://emr.pe/c/CHECK-T3Y1Q9",
+          "slot": {
+            "x": 198.42519689999997,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 0,
+          "side": "front",
+          "code": "CHECK-V9R9K6",
+          "qrUrl": "https://emr.pe/c/CHECK-V9R9K6",
+          "slot": {
+            "x": 396.85039379999995,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 0,
+          "side": "front",
+          "code": "CHECK-N0H7E7",
+          "qrUrl": "https://emr.pe/c/CHECK-N0H7E7",
+          "slot": {
+            "x": 0,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 0,
+          "side": "front",
+          "code": "CHECK-X7Q1O6",
+          "qrUrl": "https://emr.pe/c/CHECK-X7Q1O6",
+          "slot": {
+            "x": 198.42519689999997,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 0,
+          "side": "front",
+          "code": "CHECK-T9O8A8",
+          "qrUrl": "https://emr.pe/c/CHECK-T9O8A8",
+          "slot": {
+            "x": 396.85039379999995,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "side": "back",
+          "code": "CHECK-B4I2J0",
+          "qrUrl": null,
+          "slot": {
+            "x": 0,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "side": "back",
+          "code": "CHECK-T3Y1Q9",
+          "qrUrl": null,
+          "slot": {
+            "x": 198.42519689999997,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "side": "back",
+          "code": "CHECK-V9R9K6",
+          "qrUrl": null,
+          "slot": {
+            "x": 396.85039379999995,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "side": "back",
+          "code": "CHECK-N0H7E7",
+          "qrUrl": null,
+          "slot": {
+            "x": 0,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "side": "back",
+          "code": "CHECK-X7Q1O6",
+          "qrUrl": null,
+          "slot": {
+            "x": 198.42519689999997,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "side": "back",
+          "code": "CHECK-T9O8A8",
+          "qrUrl": null,
+          "slot": {
+            "x": 396.85039379999995,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 2,
+          "side": "front",
+          "code": "CHECK-B9Q7I7",
+          "qrUrl": "https://emr.pe/c/CHECK-B9Q7I7",
+          "slot": {
+            "x": 0,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 2,
+          "side": "front",
+          "code": "CHECK-P5D5V6",
+          "qrUrl": "https://emr.pe/c/CHECK-P5D5V6",
+          "slot": {
+            "x": 198.42519689999997,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 2,
+          "side": "front",
+          "code": "CHECK-W5Q5C3",
+          "qrUrl": "https://emr.pe/c/CHECK-W5Q5C3",
+          "slot": {
+            "x": 396.85039379999995,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 2,
+          "side": "front",
+          "code": "CHECK-C0X1G3",
+          "qrUrl": "https://emr.pe/c/CHECK-C0X1G3",
+          "slot": {
+            "x": 0,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 2,
+          "side": "front",
+          "code": "CHECK-R2R2X1",
+          "qrUrl": "https://emr.pe/c/CHECK-R2R2X1",
+          "slot": {
+            "x": 198.42519689999997,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 2,
+          "side": "front",
+          "code": "CHECK-E6H8W0",
+          "qrUrl": "https://emr.pe/c/CHECK-E6H8W0",
+          "slot": {
+            "x": 396.85039379999995,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.45874231910959,
+              "y": 5.66929134,
+              "width": 160.6730665917808,
+              "height": 396.8503938,
+              "naturalWidth": 798,
+              "naturalHeight": 1971
+            },
+            {
+              "x": 54.30913602910959,
+              "y": 215.43307092,
+              "width": 85.0393701,
+              "height": 85.0393701,
+              "naturalWidth": 260,
+              "naturalHeight": 260
+            }
+          ]
+        },
+        {
+          "page": 3,
+          "side": "back",
+          "code": "CHECK-B9Q7I7",
+          "qrUrl": null,
+          "slot": {
+            "x": 0,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 3,
+          "side": "back",
+          "code": "CHECK-P5D5V6",
+          "qrUrl": null,
+          "slot": {
+            "x": 198.42519689999997,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 3,
+          "side": "back",
+          "code": "CHECK-W5Q5C3",
+          "qrUrl": null,
+          "slot": {
+            "x": 396.85039379999995,
+            "y": 0,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 3,
+          "side": "back",
+          "code": "CHECK-C0X1G3",
+          "qrUrl": null,
+          "slot": {
+            "x": 0,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 3,
+          "side": "back",
+          "code": "CHECK-R2R2X1",
+          "qrUrl": null,
+          "slot": {
+            "x": 198.42519689999997,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        },
+        {
+          "page": 3,
+          "side": "back",
+          "code": "CHECK-E6H8W0",
+          "qrUrl": null,
+          "slot": {
+            "x": 396.85039379999995,
+            "y": 411.02362215,
+            "width": 195.59055123,
+            "height": 408.18897648
+          },
+          "images": [
+            {
+              "x": 17.09361952959074,
+              "y": 5.66929134,
+              "width": 161.4033121708185,
+              "height": 396.8503938,
+              "naturalWidth": 800,
+              "naturalHeight": 1967
+            }
+          ]
+        }
+      ],
+      "pdfPath": "D:\\gipa\\EMR\\ECOSISTEMA\\EMR-Handtag-Generator\\backend\\tmp-check\\size-65x140\\case-12\\CHECK_case-12.pdf"
+    }
+  ],
+  "preview": {
+    "pdfPath": "D:\\gipa\\EMR\\ECOSISTEMA\\EMR-Handtag-Generator\\backend\\tmp-check\\size-65x140\\test\\preview.pdf",
+    "records": [
+      {
+        "page": 0,
+        "side": "front",
+        "code": "TEST-QR-001",
+        "qrUrl": "https://emr.pe/c/TEST-QR-001",
+        "slot": {
+          "x": 11.33858268,
+          "y": 14.17322835,
+          "width": 184.25196855,
+          "height": 396.8503938
+        },
+        "images": [
+          {
+            "x": 11.789450979109589,
+            "y": 0,
+            "width": 160.6730665917808,
+            "height": 396.8503938,
+            "naturalWidth": 798,
+            "naturalHeight": 1971
+          },
+          {
+            "x": 48.63984468910959,
+            "y": 209.76377958,
+            "width": 85.0393701,
+            "height": 85.0393701,
+            "naturalWidth": 260,
+            "naturalHeight": 260
+          }
+        ]
+      },
+      {
+        "page": 1,
+        "side": "back",
+        "code": "TEST-QR-001",
+        "qrUrl": null,
+        "slot": {
+          "x": 11.33858268,
+          "y": 14.17322835,
+          "width": 184.25196855,
+          "height": 396.8503938
+        },
+        "images": [
+          {
+            "x": 11.424328189590739,
+            "y": 0,
+            "width": 161.4033121708185,
+            "height": 396.8503938,
+            "naturalWidth": 800,
+            "naturalHeight": 1967
+          }
+        ]
+      }
+    ]
+  },
+  "templateHashes": [
+    "c49b8b13e893bea4eb556d3e2921fa7aed2cc41b1ee6cfbf03e5ec2512a9ceb9",
+    "60c610645fc86007614fe8c20b14013fb2d241bb5720a54c61cf6260bb40eee0"
+  ],
+  "database": "mocked; no Prisma client loaded"
+}

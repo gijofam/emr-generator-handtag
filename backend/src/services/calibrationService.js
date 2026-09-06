@@ -24,6 +24,8 @@ class CalibrationService {
       paperHeightMm: appConfig.printDefaults.paperHeightMm,
       // Preserve source PNG orientation in preview rendering (no canvas rotation).
       preserveTemplateOrientation: true,
+      // Preview-only slot behavior must match calibration physical reference.
+      previewMode: true,
       // Enable strict QR preview diagnostics for calibration parity checks.
       debugPreviewQr: true,
       qrPlacement: printConfig?.qrPlacement ? { ...printConfig.qrPlacement } : undefined,
