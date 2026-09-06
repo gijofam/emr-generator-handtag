@@ -8,7 +8,9 @@ const pdfService = require('../src/services/pdfService');
 const app = require('../src/config/app');
 const {calculateLayout} = require('../src/utils/printLayout');
 const {mmToPoints} = require('../src/utils/printConfig');
-const output = path.resolve(__dirname, '../tmp-check/size-65x140');
+const output = process.env.PRINT_TEST_OUTPUT_DIR
+ ? path.resolve(process.env.PRINT_TEST_OUTPUT_DIR)
+ : path.resolve(__dirname, '../tmp-check/size-65x140');
 const close = (a,b) => assert.ok(Math.abs(a-b)<1e-6, `${a} != ${b}`);
 const hash = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 const templatePaths = [app.printDefaults.templateFrontPath, app.printDefaults.templateBackPath];
@@ -52,14 +54,25 @@ function checkGeometry(n){
   for(let i=0;i<entries.length;i++){
    const {slot,images,side}=entries[i];
    close(slot.width,mmToPoints(69));close(slot.height,mmToPoints(144));
-   close(slot.x,mmToPoints((i%3)*70));close(slot.y,mmToPoints(Math.floor(i/3)*145));
+   close(slot.x,mmToPoints(0.5+(i%3)*70));close(slot.y,mmToPoints(4+Math.floor(i/3)*145));
    assert.ok(slot.x+slot.width<=mmToPoints(210));assert.ok(slot.y+slot.height<=mmToPoints(297));
    const template=images[0];
-   assert.ok(template.x>=mmToPoints(2)-1e-6 && template.y>=mmToPoints(2)-1e-6);
-   assert.ok(template.x+template.width<=slot.width-mmToPoints(2)+1e-6);
-   assert.ok(template.y+template.height<=slot.height-mmToPoints(2)+1e-6);
+   close(template.x,0);close(template.y,0);
+   assert.ok(template.width<=slot.width+1e-6);
+   assert.ok(template.height<=slot.height+1e-6);
    assert.equal(images.length,side==='front'?2:1);
-   if(side==='front'){close(images[1].width,images[1].height);close(images[1].width,mmToPoints(30));}
+   if(side==='front'){
+    const qr=images[1];close(qr.width,qr.height);
+    // Independent frame measurements from the current front PNG.
+    const frame={x:template.x+template.width*227/880,y:template.y+template.height*976/1786,
+      width:template.width*426/880,height:template.height*417/1786};
+    close(qr.x+qr.width/2,frame.x+frame.width/2);
+    close(qr.y+qr.height/2,frame.y+frame.height/2);
+    const padding=Math.min(frame.width,frame.height)*0.05;
+    assert.ok(qr.x>=frame.x+padding-1e-6 && qr.y>=frame.y+padding-1e-6);
+    assert.ok(qr.x+qr.width<=frame.x+frame.width-padding+1e-6);
+    assert.ok(qr.y+qr.height<=frame.y+frame.height-padding+1e-6);
+   }
    for(const other of entries.slice(i+1)){
     assert.ok(slot.x+slot.width<=other.slot.x || other.slot.x+other.slot.width<=slot.x || slot.y+slot.height<=other.slot.y || other.slot.y+other.slot.height<=slot.y);
    }
@@ -76,6 +89,7 @@ async function main(){
  assert.deepEqual([config.handtagWidthMm,config.handtagHeightMm,config.bleedMm,config.spacingMm,config.marginMm],[65,140,2,1,0]);
  const layout=calculateLayout({paperSize:{width:210,height:297}});
  assert.deepEqual([layout.columns,layout.rows,layout.handtagsPerPage,layout.orientation],[3,2,6,'vertical']);
+ assert.deepEqual([layout.gridWidthMm,layout.gridHeightMm,layout.startXMm,layout.startYMm],[209,289,0.5,4]);
  const horizontal={columns:Math.floor(211/145),rows:Math.floor(298/70)};
  assert.deepEqual(horizontal,{columns:1,rows:4});
  const rotated=calculateLayout({paperSize:{width:297,height:210}});
@@ -113,10 +127,17 @@ async function main(){
  const prod=results[0].records[0],preview=records[0];
  close(preview.slot.width,mmToPoints(65));close(preview.slot.height,mmToPoints(140));
  close(preview.slot.x,mmToPoints(4));close(preview.slot.y,mmToPoints(5));
- for(let i=0;i<2;i++){
-  close(preview.images[i].width,prod.images[i].width);close(preview.images[i].height,prod.images[i].height);
-  close(preview.images[i].x+mmToPoints(2),prod.images[i].x);close(preview.images[i].y+mmToPoints(2),prod.images[i].y);
- }
+ // Preview keeps the final-size canvas; production fits the full effective slot.
+ const previewTemplate=preview.images[0], productionTemplate=prod.images[0];
+ close(previewTemplate.width/previewTemplate.height,productionTemplate.width/productionTemplate.height);
+ close(Math.max(previewTemplate.width/mmToPoints(65),previewTemplate.height/mmToPoints(140)),1);
+ close(Math.max(productionTemplate.width/mmToPoints(69),productionTemplate.height/mmToPoints(144)),1);
+ close(preview.images[1].width/previewTemplate.width,prod.images[1].width/productionTemplate.width);
+ close(preview.images[1].height/previewTemplate.height,prod.images[1].height/productionTemplate.height);
+ close((preview.images[1].x-previewTemplate.x)/previewTemplate.width,
+   (prod.images[1].x-productionTemplate.x)/productionTemplate.width);
+ close((preview.images[1].y-previewTemplate.y)/previewTemplate.height,
+   (prod.images[1].y-productionTemplate.y)/productionTemplate.height);
  // Verify frontend calibration uses inverse, uniform conversions for the real PNG ratio.
  const panel=fs.readFileSync(path.resolve(__dirname,'../../frontend/src/components/CalibrationPanel.jsx'),'utf8');
  const source=panel.slice(panel.indexOf('function clamp('),panel.indexOf('function createCalibrationQrSvgDataUrl('));

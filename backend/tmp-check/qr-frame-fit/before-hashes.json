@@ -1,0 +1,9 @@
+{
+  "backend/src/services/pdfService.js": "f1917f593bf2437a3627a9b409111b7b48ac994aea5debd86674f7e22ef498e4",
+  "backend/src/utils/printLayout.js": "06f1a5424bd04e2bce787a3f99fe9efa7074e0e8f1ffa7da7db6ca29bf0520ab",
+  "backend/src/config/app.js": "0963b92a19baed7901593e8dcfb5b9d5590d667f752566f760a6b96edcb7cf22",
+  "backend/src/utils/printConfig.js": "61000a8534cc0c380149483e51d5739d148b7833247e8df052ed4050606ebdf5",
+  "backend/src/services/qrService.js": "194f41fed115876e44de70bf761762a77d3d85d3fd07ee94c3f7c418d0fc6457",
+  "backend/output/template-assets/active-front.png": "5cabb3b352de08ac1037094ea30fa147f07024f7329b33a79001688291a0ff5a",
+  "backend/output/template-assets/active-back.png": "9c2b7d0fb2eac10b7dadb264a455a4bcd4bc93d28ed92fc13bd065a6cd9e436a"
+}

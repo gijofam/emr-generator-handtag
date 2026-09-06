@@ -67,6 +67,12 @@ function calculateLayout({ paperSize, margins = {}, spacing = DEFAULT_SPACING_MM
   const columns = bestLayout.columns;
   const rows = bestLayout.rows;
 
+  const gridWidthMm = columns * effectiveWidth + (columns - 1) * resolvedSpacing;
+  const gridHeightMm = rows * effectiveHeight + (rows - 1) * resolvedSpacing;
+  // Center the complete grid once. Default exterior margins are zero.
+  const startXMm = resolvedMargins.left + (usableWidth - gridWidthMm) / 2;
+  const startYMm = resolvedMargins.top + (usableHeight - gridHeightMm) / 2;
+
   const handtagsPerPage = columns * rows;
   const totalArea = effectiveWidth * effectiveHeight;
   const paperArea = usableWidth * usableHeight;
@@ -84,6 +90,10 @@ function calculateLayout({ paperSize, margins = {}, spacing = DEFAULT_SPACING_MM
     effectiveHeightMm: effectiveHeight,
     usableWidthMm: usableWidth,
     usableHeightMm: usableHeight,
+    gridWidthMm,
+    gridHeightMm,
+    startXMm,
+    startYMm,
     orientation: handtagHeightMm >= handtagWidthMm ? 'vertical' : 'horizontal',
     columns,
     rows,
@@ -96,8 +106,8 @@ function calculateLayout({ paperSize, margins = {}, spacing = DEFAULT_SPACING_MM
     pageHeightPt: mmToPoints(resolvedPaper.height),
     usableWidthPt: mmToPoints(usableWidth),
     usableHeightPt: mmToPoints(usableHeight),
-    startXPt: mmToPoints(resolvedMargins.left),
-    startYPt: mmToPoints(resolvedMargins.top),
+    startXPt: mmToPoints(startXMm),
+    startYPt: mmToPoints(startYMm),
   };
 }
 

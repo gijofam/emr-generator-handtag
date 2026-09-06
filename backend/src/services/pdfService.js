@@ -282,9 +282,8 @@ class PdfService {
     const templateBuffer = resolvedTemplatePath && fs.existsSync(resolvedTemplatePath) ? fs.readFileSync(resolvedTemplatePath) : null;
     const templateImageMeta = this.getTemplateImageMeta(doc, templateBuffer);
 
-    // Production slots include bleed; calibration slots represent the final trim size.
-    const bleedPt = printConfig.previewMode ? 0 : mmToPoints(printConfig.bleedMm);
-    const trimRect = { x: bleedPt, y: bleedPt, width: width - 2 * bleedPt, height: height - 2 * bleedPt };
+    // Imposition already includes bleed in width/height. Do not inset it again.
+    const templateSlotRect = { x: 0, y: 0, width, height };
 
     const ctmBeforeSave = this.getCtmSnapshot(doc);
     if (side === 'front' && printConfig?.debugPreviewQr) {
@@ -303,7 +302,7 @@ class PdfService {
       console.log('[QR Trace] CTM after translate(x, y):', this.getCtmSnapshot(doc));
     }
 
-    const drawRect = this.resolveTemplateDrawRect(trimRect, templateImageMeta);
+    const drawRect = this.resolveTemplateDrawRect(templateSlotRect, templateImageMeta, Boolean(printConfig.previewMode));
     const pngRenderRect = {
       x: drawRect.x,
       y: drawRect.y,
@@ -358,56 +357,16 @@ class PdfService {
 
     if (side === 'front' && qrUrl) {
       const qrImageBuffer = await qrService.generateQrBuffer(qrUrl);
-      const qrPlacement = printConfig.qrPlacement || {};
-      // Calibration coordinates are millimetres relative to the proportionally fitted PNG.
-      const configuredWidth = mmToPoints(Number(qrPlacement.width));
-      const configuredHeight = mmToPoints(Number(qrPlacement.height));
-      const qrSize = Math.min(configuredWidth, configuredHeight, drawRect.width, drawRect.height);
-      if (!Number.isFinite(qrSize) || qrSize <= 0) {
-        throw new Error('QR dimensions must be positive.');
-      }
-      const qrX = drawRect.x + Math.max(0, Math.min(mmToPoints(Number(qrPlacement.x)) || 0, drawRect.width - qrSize));
-      const qrY = drawRect.y + Math.max(0, Math.min(mmToPoints(Number(qrPlacement.y)) || 0, drawRect.height - qrSize));
-      const qrWidth = qrSize;
-      const qrHeight = qrSize;
-
+      const qrRect = this.resolveQrRectWithinDrawRect(drawRect);
       if (printConfig?.debugPreviewQr) {
-        const mmWidth = Number(qrPlacement.width);
-        const mmHeight = Number(qrPlacement.height);
-        const scaleX = Number.isFinite(mmWidth) && mmWidth !== 0 ? (qrWidth / mmWidth) : 0;
-        const scaleY = Number.isFinite(mmHeight) && mmHeight !== 0 ? (qrHeight / mmHeight) : 0;
-
-        console.log('QR (mm):');
-        console.log(`x: ${Number(qrPlacement.x)}`);
-        console.log(`y: ${Number(qrPlacement.y)}`);
-        console.log(`width: ${mmWidth}`);
-        console.log(`height: ${mmHeight}`);
-        console.log('QR (points):');
-        console.log(`x: ${qrX}`);
-        console.log(`y: ${qrY}`);
-        console.log(`width: ${qrWidth}`);
-        console.log(`height: ${qrHeight}`);
-        console.log('[QR Trace] Same graphics context as template render:', JSON.stringify(this.getCtmSnapshot(doc)) === JSON.stringify(ctmAfterTemplateRender));
-        console.log('[QR Trace] CTM before QR doc.image:', this.getCtmSnapshot(doc));
-        console.log('[QR Trace] Final QR render rect just before doc.image:');
-        console.log(`x final: ${qrX}`);
-        console.log(`y final: ${qrY}`);
-        console.log(`width final: ${qrWidth}`);
-        console.log(`height final: ${qrHeight}`);
-        console.log('[QR Trace] QR doc.image arguments:', {
-          image: 'qrImageBuffer',
-          x: qrX,
-          y: qrY,
-          options: { width: qrWidth, height: qrHeight },
+        console.log('[QR Trace] Frame interior (points):', qrRect.frame);
+        console.log('[QR Trace] Inner padding (points):', qrRect.padding);
+        console.log('[QR Trace] Centered square QR (points):', {
+          x: qrRect.x, y: qrRect.y, width: qrRect.width, height: qrRect.height,
         });
-        console.log(`scaleX: ${scaleX}`);
-        console.log(`scaleY: ${scaleY}`);
+        console.log('[QR Trace] Same graphics context as template render:', JSON.stringify(this.getCtmSnapshot(doc)) === JSON.stringify(ctmAfterTemplateRender));
       }
-
-      doc.image(qrImageBuffer, qrX, qrY, { width: qrWidth, height: qrHeight });
-      if (printConfig?.debugPreviewQr) {
-        console.log('[QR Trace] CTM after QR doc.image:', this.getCtmSnapshot(doc));
-      }
+      doc.image(qrImageBuffer, qrRect.x, qrRect.y, { width: qrRect.width, height: qrRect.height });
     }
 
     if (side === 'front' && printConfig?.debugPreviewQr) {
@@ -437,7 +396,7 @@ class PdfService {
     }
   }
 
-  resolveTemplateDrawRect(slotRect, templateImageMeta) {
+  resolveTemplateDrawRect(slotRect, templateImageMeta, center = true) {
     if (!templateImageMeta) {
       return slotRect;
     }
@@ -453,7 +412,7 @@ class PdfService {
       const fittedHeight = slotRect.width / imageAspect;
       return {
         x: slotRect.x,
-        y: slotRect.y + ((slotRect.height - fittedHeight) / 2),
+        y: slotRect.y + (center ? (slotRect.height - fittedHeight) / 2 : 0),
         width: slotRect.width,
         height: fittedHeight,
       };
@@ -461,26 +420,33 @@ class PdfService {
 
     const fittedWidth = slotRect.height * imageAspect;
     return {
-      x: slotRect.x + ((slotRect.width - fittedWidth) / 2),
+      x: slotRect.x + (center ? (slotRect.width - fittedWidth) / 2 : 0),
       y: slotRect.y,
       width: fittedWidth,
       height: slotRect.height,
     };
   }
 
-  resolveQrRectWithinDrawRect(drawRect, printConfig, templateImageMeta) {
-    const qrPlacement = printConfig.qrPlacement || {};
-    const qrX = drawRect.x + mmToPoints(Number(qrPlacement.x));
-    const qrY = drawRect.y + mmToPoints(Number(qrPlacement.y));
-    const qrWidth = mmToPoints(Number(qrPlacement.width));
-    const qrHeight = mmToPoints(Number(qrPlacement.height));
-
+  resolveQrRectWithinDrawRect(drawRect) {
+    // Measured INNER edges of the current official front PNG (880 x 1786 px).
+    // Store the frame relative to the image so preview and production scale together.
+    // These are frame bounds, not inherited QR placement or a fixed QR size.
+    const frame = {
+      x: drawRect.x + drawRect.width * (227 / 880),
+      y: drawRect.y + drawRect.height * (976 / 1786),
+      width: drawRect.width * (426 / 880),
+      height: drawRect.height * (417 / 1786),
+    };
+    const padding = Math.min(frame.width, frame.height) * 0.05;
+    const qrInnerSize = Math.min(frame.width, frame.height) - 2 * padding;
     return {
       drawRect,
-      x: qrX,
-      y: qrY,
-      width: qrWidth,
-      height: qrHeight,
+      frame,
+      padding,
+      x: frame.x + (frame.width - qrInnerSize) / 2,
+      y: frame.y + (frame.height - qrInnerSize) / 2,
+      width: qrInnerSize,
+      height: qrInnerSize,
     };
   }
 
