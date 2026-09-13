@@ -121,6 +121,7 @@ class PdfService {
       },
     });
 
+    resolved.qrPlacementNormalized = printConfig?.qrPlacementNormalized || null;
     resolved.preserveTemplateOrientation = Boolean(printConfig?.preserveTemplateOrientation);
     resolved.previewMode = Boolean(printConfig?.previewMode);
     resolved.debugPreviewQr = Boolean(printConfig?.debugPreviewQr);
@@ -357,7 +358,7 @@ class PdfService {
 
     if (side === 'front' && qrUrl) {
       const qrImageBuffer = await qrService.generateQrBuffer(qrUrl);
-      const qrRect = this.resolveQrRectWithinDrawRect(drawRect);
+      const qrRect = this.resolveQrRectWithinDrawRect(drawRect, printConfig.qrPlacementNormalized);
       if (printConfig?.debugPreviewQr) {
         console.log('[QR Trace] Frame interior (points):', qrRect.frame);
         console.log('[QR Trace] Inner padding (points):', qrRect.padding);
@@ -427,7 +428,19 @@ class PdfService {
     };
   }
 
-  resolveQrRectWithinDrawRect(drawRect) {
+  resolveQrRectWithinDrawRect(drawRect, normalized = null) {
+    if (normalized) {
+      const { x, y, width, height } = normalized;
+      if ([x, y, width, height].some(value => !Number.isFinite(value))
+        || x < 0 || y < 0 || width <= 0 || height <= 0
+        || x + width > 1.000001 || y + height > 1.000001) {
+        throw new Error('Invalid QR placement relative to the template.');
+      }
+      // Image-relative coordinates preserve the same position in every PDF scale.
+      const size = Math.min(width * drawRect.width, height * drawRect.height);
+      return { drawRect, x: drawRect.x + x * drawRect.width,
+        y: drawRect.y + y * drawRect.height, width: size, height: size };
+    }
     // Measured INNER edges of the current official front PNG (880 x 1786 px).
     // Store the frame relative to the image so preview and production scale together.
     // These are frame bounds, not inherited QR placement or a fixed QR size.

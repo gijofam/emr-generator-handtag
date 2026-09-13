@@ -1,0 +1,43 @@
+﻿const fs=require('fs');const path=require('path');const assert=require('assert/strict');
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+(async()=>{
+ let tabs;for(let i=0;i<40;i++){try{tabs=await(await fetch('http://127.0.0.1:9224/json')).json();if(tabs.length)break;}catch{}await sleep(200);}
+ const ws=new WebSocket(tabs.find(t=>t.type==='page').webSocketDebuggerUrl);await new Promise(r=>ws.onopen=r);
+ let id=0;const pending=new Map();ws.onmessage=e=>{const m=JSON.parse(e.data);if(m.id){const p=pending.get(m.id);pending.delete(m.id);m.error?p.reject(m.error):p.resolve(m.result);}};
+ const send=(method,params={})=>new Promise((resolve,reject)=>{pending.set(++id,{resolve,reject});ws.send(JSON.stringify({id,method,params}));});
+ const evaluate=async expression=>{const r=await send('Runtime.evaluate',{expression,awaitPromise:true,returnByValue:true});if(r.exceptionDetails)throw Error(JSON.stringify(r.exceptionDetails));return r.result.value;};
+ const wait=async expression=>{for(let i=0;i<100;i++){if(await evaluate(expression))return;await sleep(100);}throw Error('Timeout: '+expression);};
+ await send('Page.enable');await send('Emulation.setDeviceMetricsOverride',{width:1600,height:1900,deviceScaleFactor:1,mobile:false});
+ await send('Page.navigate',{url:'http://127.0.0.1:5173'});
+ await wait('document.querySelectorAll(".section-tab").length===2');
+ await evaluate('document.querySelectorAll(".section-tab")[1].click()');
+ await wait('!!document.querySelector(".calibration-rnd") && document.querySelector(".handtag-template-image").naturalWidth>0');
+ await sleep(300);
+ const assets=await(await fetch('http://127.0.0.1:4000/api/calibration/preview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({format:'assets'})})).json();
+ assert.equal(await evaluate('document.querySelector(".handtag-template-image").src'),assets.templateDataUrl);
+ assert.ok((await evaluate('getComputedStyle(document.querySelector(".calibration-rnd")).backgroundImage')).includes(assets.qrDataUrl));
+ const rects=()=>evaluate(`(()=>{const i=document.querySelector('.handtag-template-image').getBoundingClientRect(),q=document.querySelector('.calibration-rnd').getBoundingClientRect();return {image:{x:i.x,y:i.y,width:i.width,height:i.height},qr:{x:q.x,y:q.y,width:q.width,height:q.height}}})()`);
+ const screenshot=async name=>{const b=await evaluate(`(()=>{const r=document.querySelector('.handtag-stage').getBoundingClientRect();return {x:r.x+scrollX,y:r.y+scrollY,width:r.width,height:r.height,scale:1}})()`);const r=await send('Page.captureScreenshot',{format:'png',clip:b,captureBeyondViewport:true});fs.writeFileSync(path.join(__dirname,name),Buffer.from(r.data,'base64'));};
+ await screenshot('calibrator-default.png');const initial=await rects();
+ // Exercise actual dragging and save the resulting browser state.
+ const x=initial.qr.x+initial.qr.width/2,y=initial.qr.y+initial.qr.height/2;
+ await send('Input.dispatchMouseEvent',{type:'mouseMoved',x,y});
+ await send('Input.dispatchMouseEvent',{type:'mousePressed',x,y,button:'left',clickCount:1});
+ await send('Input.dispatchMouseEvent',{type:'mouseMoved',x:x+3,y:y+2,button:'left',buttons:1});
+ await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:x+3,y:y+2,button:'left',clickCount:1});
+ await sleep(200);
+ await evaluate(`[...document.querySelectorAll('button')].find(b=>b.textContent.includes('Guardar configuraci')).click()`);
+ const saved=await evaluate("JSON.parse(localStorage.getItem('emr.handtag.calibration.v2'))");assert.ok(saved.qrPlacementNormalized);
+ const modified=await rects();assert.ok(Math.abs(modified.qr.x-initial.qr.x-3)<1);assert.ok(Math.abs(modified.qr.y-initial.qr.y-2)<1);
+ const config=await evaluate("import('/src/services/calibrationStore.js').then(m=>m.getProductionPrintConfig())");
+ fs.writeFileSync(path.join(__dirname,'browser-config.json'),JSON.stringify(config,null,2));
+ await screenshot('calibrator-saved.png');
+ await send('Page.reload');await wait('document.querySelectorAll(".section-tab").length===2');await evaluate('document.querySelectorAll(".section-tab")[1].click()');
+ await wait('!!document.querySelector(".calibration-rnd")');await sleep(300);
+ const reloaded=await rects();assert.ok(Math.abs(reloaded.qr.x-modified.qr.x)<0.1);assert.ok(Math.abs(reloaded.qr.y-modified.qr.y)<0.1);
+ await evaluate(`[...document.querySelectorAll('button')].find(b=>b.textContent.includes('Generar PDF de prueba')).click()`);
+ await wait(`[...document.querySelectorAll('button')].some(b=>b.textContent.includes('Descargar PDF de prueba'))`);
+ fs.writeFileSync(path.join(__dirname,'browser-result.json'),JSON.stringify({initial,modified,reloaded,saved,templateBytesMatch:true,qrBytesMatch:true},null,2));
+ console.log('Browser: active PNG and real QR bytes match; drag/save/reload and PDF preview passed.');
+ await send('Browser.close');ws.close();
+})().catch(e=>{console.error(e);process.exit(1)});

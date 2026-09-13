@@ -140,7 +140,7 @@ async function main(){
    (prod.images[1].y-productionTemplate.y)/productionTemplate.height);
  // Verify frontend calibration uses inverse, uniform conversions for the real PNG ratio.
  const panel=fs.readFileSync(path.resolve(__dirname,'../../frontend/src/components/CalibrationPanel.jsx'),'utf8');
- const source=panel.slice(panel.indexOf('function clamp('),panel.indexOf('function createCalibrationQrSvgDataUrl('));
+ const source=panel.slice(panel.indexOf('function clamp('),panel.indexOf('function parseSize('));
  const ctx={HANDTAG_DIMENSIONS_MM:{width:65,height:140},DEFAULT_QR_PLACEMENT:{x:13,y:74,width:30,height:30}};
  vm.createContext(ctx);vm.runInContext(source,ctx);
  const rect={width:399,height:985.5};const placement={x:13,y:74,width:30,height:30};

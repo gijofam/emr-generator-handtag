@@ -1,4 +1,4 @@
-const CALIBRATION_KEY = 'emr.handtag.calibration.v1';
+const CALIBRATION_KEY = 'emr.handtag.calibration.v2';
 const ACTIVE_TEMPLATE_CACHE_KEY = 'emr.handtag.activeTemplate.front.v1';
 
 export const HANDTAG_DIMENSIONS_MM = {
@@ -40,6 +40,7 @@ export function loadCalibrationConfig() {
     const parsed = JSON.parse(raw);
     return {
       qrPlacement: normalizePlacement(parsed.qrPlacement),
+      qrPlacementNormalized: parsed.qrPlacementNormalized || null,
       updatedAt: parsed.updatedAt || null,
     };
   } catch (_error) {
@@ -50,9 +51,10 @@ export function loadCalibrationConfig() {
   }
 }
 
-export function saveCalibrationConfig(qrPlacement) {
+export function saveCalibrationConfig(qrPlacement, qrPlacementNormalized = null) {
   const payload = {
     qrPlacement: normalizePlacement(qrPlacement),
+    qrPlacementNormalized,
     updatedAt: new Date().toISOString(),
   };
 
@@ -60,13 +62,13 @@ export function saveCalibrationConfig(qrPlacement) {
   return payload;
 }
 
-export function resetCalibrationConfig() {
-  return saveCalibrationConfig(DEFAULT_QR_PLACEMENT);
+export function resetCalibrationConfig(placement = DEFAULT_QR_PLACEMENT, normalized = null) {
+  return saveCalibrationConfig(placement, normalized);
 }
 
 export function getProductionPrintConfig() {
-  const { qrPlacement } = loadCalibrationConfig();
-  return { qrPlacement };
+  const { qrPlacement, qrPlacementNormalized } = loadCalibrationConfig();
+  return qrPlacementNormalized ? { qrPlacement, qrPlacementNormalized } : {};
 }
 
 export function cacheActiveFrontTemplate({ fileName, dataUrl }) {

@@ -80,6 +80,15 @@ export const apiClient = {
     return response.blob();
   },
 
+  async getCalibrationAssets() {
+    const response = await fetchWithTimeout(`${API_BASE_URL}/calibration/preview`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ format: 'assets' }),
+    });
+    if (!response.ok) throw new Error('No se pudo cargar el QR real y la plantilla activa.');
+    return response.json();
+  },
+
   async generateCalibrationPreview(printConfig) {
     console.log('[Trace][api.js] qrPlacement antes de POST /calibration/preview:', printConfig?.qrPlacement);
     const response = await fetchWithTimeout(`${API_BASE_URL}/calibration/preview`, {

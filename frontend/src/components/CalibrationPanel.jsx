@@ -19,14 +19,28 @@ function toNumber(value, fallback) {
 }
 
 function normalizePlacementMm(value) {
-  const nextWidth = clamp(toNumber(value?.width, DEFAULT_QR_PLACEMENT.width), 1, HANDTAG_DIMENSIONS_MM.width);
-  const nextHeight = clamp(toNumber(value?.height, DEFAULT_QR_PLACEMENT.height), 1, HANDTAG_DIMENSIONS_MM.height);
+  const size = clamp(Math.min(toNumber(value?.width, DEFAULT_QR_PLACEMENT.width),
+    toNumber(value?.height, DEFAULT_QR_PLACEMENT.height)), 1,
+  Math.min(HANDTAG_DIMENSIONS_MM.width, HANDTAG_DIMENSIONS_MM.height));
+  const nextWidth = size;
+  const nextHeight = size;
 
   return {
     x: clamp(toNumber(value?.x, DEFAULT_QR_PLACEMENT.x), 0, HANDTAG_DIMENSIONS_MM.width - nextWidth),
     y: clamp(toNumber(value?.y, DEFAULT_QR_PLACEMENT.y), 0, HANDTAG_DIMENSIONS_MM.height - nextHeight),
     width: nextWidth,
     height: nextHeight,
+  };
+}
+
+function readVisibleImageRect(image, stage) {
+  const visible = image.getBoundingClientRect();
+  const origin = stage.getBoundingClientRect();
+  return {
+    x: visible.left - origin.left - stage.clientLeft,
+    y: visible.top - origin.top - stage.clientTop,
+    width: visible.width,
+    height: visible.height,
   };
 }
 
@@ -83,32 +97,9 @@ function pxToMm(rectPx, imageRect) {
   });
 }
 
-function createCalibrationQrSvgDataUrl() {
-  const svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
-      <rect width="240" height="240" fill="white"/>
-      <rect x="0" y="0" width="240" height="240" fill="white"/>
-      <rect x="0" y="0" width="80" height="80" fill="black"/>
-      <rect x="16" y="16" width="48" height="48" fill="white"/>
-      <rect x="26" y="26" width="28" height="28" fill="black"/>
-      <rect x="160" y="0" width="80" height="80" fill="black"/>
-      <rect x="176" y="16" width="48" height="48" fill="white"/>
-      <rect x="186" y="26" width="28" height="28" fill="black"/>
-      <rect x="0" y="160" width="80" height="80" fill="black"/>
-      <rect x="16" y="176" width="48" height="48" fill="white"/>
-      <rect x="26" y="186" width="28" height="28" fill="black"/>
-      <rect x="100" y="90" width="20" height="20" fill="black"/>
-      <rect x="130" y="90" width="20" height="20" fill="black"/>
-      <rect x="100" y="120" width="20" height="20" fill="black"/>
-      <rect x="130" y="120" width="20" height="20" fill="black"/>
-      <rect x="90" y="170" width="20" height="20" fill="black"/>
-      <rect x="120" y="170" width="20" height="20" fill="black"/>
-      <rect x="170" y="100" width="20" height="20" fill="black"/>
-      <rect x="170" y="130" width="20" height="20" fill="black"/>
-    </svg>
-  `;
-
-  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+function normalizedPlacement(rect, imageRect) {
+  return { x: rect.x / imageRect.width, y: rect.y / imageRect.height,
+    width: rect.width / imageRect.width, height: rect.height / imageRect.height };
 }
 
 function parseSize(value) {
@@ -141,7 +132,8 @@ export function CalibrationPanel() {
   const [statusMessage, setStatusMessage] = useState('');
   const [previewOffsetMm, setPreviewOffsetMm] = useState({ x: '0', y: '0' });
 
-  const calibrationQrDataUrl = useMemo(() => createCalibrationQrSvgDataUrl(), []);
+  const [calibrationQrDataUrl, setCalibrationQrDataUrl] = useState('');
+  const defaultPlacementRef = useRef(DEFAULT_QR_PLACEMENT);
 
   const qrPlacementMm = useMemo(() => {
     if (!qrRectPx || !imageRect.width || !imageRect.height) {
@@ -156,15 +148,26 @@ export function CalibrationPanel() {
     async function syncActiveTemplate() {
       try {
         setLoading(true);
-        const templateInfo = await apiClient.getTemplateConfig();
+        const [templateInfo, assets] = await Promise.all([
+          apiClient.getTemplateConfig(), apiClient.getCalibrationAssets(),
+        ]);
         if (!mounted) return;
 
         const frontInfo = templateInfo?.front || null;
         setTemplateMeta(frontInfo);
 
         if (frontInfo) {
-          const cacheBuster = templateInfo?.updatedAt || Date.now();
-          setFrontTemplateDataUrl(apiClient.getActiveFrontTemplateUrl(cacheBuster));
+          setFrontTemplateDataUrl(assets.templateDataUrl);
+          setCalibrationQrDataUrl(assets.qrDataUrl);
+          defaultPlacementRef.current = assets.defaultQrPlacement;
+          const saved = loadCalibrationConfig();
+          const normalized = saved.qrPlacementNormalized;
+          const reference = assets.referenceSizeMm;
+          setSavedPlacementMm(normalized ? {
+            x: normalized.x * reference.width, y: normalized.y * reference.height,
+            width: normalized.width * reference.width, height: normalized.height * reference.height,
+          } : assets.defaultQrPlacement);
+          setQrRectPx(null);
         } else {
           setFrontTemplateDataUrl('');
         }
@@ -200,12 +203,7 @@ export function CalibrationPanel() {
       const stage = stageRef.current;
       const imgBoundingRect = image.getBoundingClientRect();
       const stageBoundingRect = stage?.getBoundingClientRect?.();
-      const next = {
-        x: image.offsetLeft,
-        y: image.offsetTop,
-        width: image.clientWidth,
-        height: image.clientHeight,
-      };
+      const next = readVisibleImageRect(image, stage);
 
       const imageRectSides = {
         left: next.x,
@@ -361,10 +359,20 @@ export function CalibrationPanel() {
   }
 
   function handleInputChange(field, rawValue) {
+    const isSize = field === 'width' || field === 'height';
     setDraftValues(prev => ({
       ...prev,
       [field]: rawValue,
+      ...(isSize ? { width: rawValue, height: rawValue } : {}),
     }));
+    const size = Number(rawValue);
+    if (isSize && qrRectPx && rawValue.trim() !== '' && Number.isFinite(size) && size > 0) {
+      updateQrRect({ ...qrRectPx, width: size, height: size });
+    }
+  }
+
+  function handleQrResize(_event, _direction, ref, _delta, position) {
+    updateQrRect({ ...position, width: parseSize(ref.style.width), height: parseSize(ref.style.height) });
   }
 
   function commitInputValue(field) {
@@ -413,13 +421,15 @@ export function CalibrationPanel() {
     console.log(`y: ${payload.y}`);
     console.log(`width: ${payload.width}`);
     console.log(`height: ${payload.height}`);
-    const saved = saveCalibrationConfig(payload);
+    const saved = saveCalibrationConfig(payload, normalizedPlacement(qrRectPx, imageRect));
     setSavedPlacementMm(saved.qrPlacement);
     setStatusMessage(`Configuración guardada (${new Date(saved.updatedAt).toLocaleString()}).`);
   }
 
   function handleResetCalibration() {
-    const reset = resetCalibrationConfig();
+    const defaults = defaultPlacementRef.current;
+    const rect = mmToPx(defaults, imageRect);
+    const reset = resetCalibrationConfig(defaults, normalizedPlacement(rect, imageRect));
     const normalizedMm = normalizePlacementMm(reset.qrPlacement);
     setSavedPlacementMm(normalizedMm);
 
@@ -467,6 +477,7 @@ export function CalibrationPanel() {
       console.log('[Trace][CalibrationPanel] qrPlacement antes de generateCalibrationPreview:', qrPlacementMm);
       const result = await apiClient.generateCalibrationPreview({
         qrPlacement: qrPlacementMm,
+        qrPlacementNormalized: normalizedPlacement(qrRectPx, imageRect),
         previewOffsetMm: previewOffsetPayload,
       });
 
@@ -535,19 +546,13 @@ export function CalibrationPanel() {
                     className="handtag-template-image"
                     src={frontTemplateDataUrl}
                     alt="Plantilla frontal activa"
-                    style={{ outline: '2px solid #005bff', outlineOffset: '-2px' }}
                     onLoad={() => {
                       const image = imageRef.current;
                       const stage = stageRef.current;
                       if (!image) return;
                       const imgBoundingRect = image.getBoundingClientRect();
                       const stageBoundingRect = stage?.getBoundingClientRect?.();
-                      const nextRect = {
-                        x: image.offsetLeft,
-                        y: image.offsetTop,
-                        width: image.clientWidth,
-                        height: image.clientHeight,
-                      };
+                      const nextRect = readVisibleImageRect(image, stage);
 
                       const imageRectSides = {
                         left: nextRect.x,
@@ -600,32 +605,19 @@ export function CalibrationPanel() {
                   />
 
                   {imageRect.width > 0 && imageRect.height > 0 && qrRectPx && (
-                    <div className="handtag-overlay" aria-hidden="true">
-                      <div
-                        style={{
-                          position: 'absolute',
-                          left: `${imageRect.x}px`,
-                          top: `${imageRect.y}px`,
-                          width: `${imageRect.width}px`,
-                          height: `${imageRect.height}px`,
-                          border: '2px solid #ff0000',
-                          boxSizing: 'border-box',
-                          pointerEvents: 'none',
-                          zIndex: 6,
-                        }}
-                      />
-                      {showGrid && <div className="grid-layer" />}
-                      <div
+                    <div className="handtag-overlay" aria-hidden="true"
+                      style={{ left: imageRect.x, top: imageRect.y, width: imageRect.width, height: imageRect.height }}>
+                      {showGrid && <div
                         className="guide-horizontal"
-                        style={{ top: `${qrRectPx.y + (qrRectPx.height / 2)}px` }}
-                      />
-                      <div
+                        style={{ top: qrRectPx.y + qrRectPx.height / 2, left: 0, width: imageRect.width }}
+                      />}
+                      {showGrid && <div
                         className="guide-vertical"
-                        style={{ left: `${qrRectPx.x + (qrRectPx.width / 2)}px` }}
-                      />
+                        style={{ left: qrRectPx.x + qrRectPx.width / 2, top: 0, height: imageRect.height }}
+                      />}
 
                       <Rnd
-                        className="calibration-rnd"
+                        className="calibration-rnd calibration-guides"
                         bounds="parent"
                         lockAspectRatio={1}
                         size={{ width: qrRectPx.width, height: qrRectPx.height }}
@@ -637,14 +629,8 @@ export function CalibrationPanel() {
                             y: data.y,
                           });
                         }}
-                        onResize={(_event, _direction, ref, _delta, position) => {
-                          updateQrRect({
-                            x: position.x,
-                            y: position.y,
-                            width: parseSize(ref.style.width),
-                            height: parseSize(ref.style.height),
-                          });
-                        }}
+                        onResize={handleQrResize}
+                        onResizeStop={handleQrResize}
                         enableResizing={{
                           top: false,
                           right: false,
@@ -663,9 +649,10 @@ export function CalibrationPanel() {
                         }}
                         style={{
                           zIndex: 5,
-                          border: '2px solid #ff6b35',
+                          border: 0,
+                          outline: 'none',
                           backgroundImage: `url(${calibrationQrDataUrl})`,
-                          backgroundSize: '100% 100%',
+                          backgroundSize: 'contain',
                           backgroundPosition: 'center',
                           backgroundRepeat: 'no-repeat',
                           boxSizing: 'border-box',

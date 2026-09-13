@@ -1,0 +1,11 @@
+{
+  "backend/src/utils/printLayout.js": "06f1a5424bd04e2bce787a3f99fe9efa7074e0e8f1ffa7da7db6ca29bf0520ab",
+  "backend/src/config/app.js": "0963b92a19baed7901593e8dcfb5b9d5590d667f752566f760a6b96edcb7cf22",
+  "backend/src/services/qrService.js": "194f41fed115876e44de70bf761762a77d3d85d3fd07ee94c3f7c418d0fc6457",
+  "backend/output/template-assets/active-front.png": "5cabb3b352de08ac1037094ea30fa147f07024f7329b33a79001688291a0ff5a",
+  "backend/output/template-assets/active-back.png": "9c2b7d0fb2eac10b7dadb264a455a4bcd4bc93d28ed92fc13bd065a6cd9e436a",
+  "backend/src/routes/batchRoutes.js": "313efdde04f9d1b9cedc3cd81f3ccdef8adce9d22b0b7f05c907ca96f6a20556",
+  "backend/src/routes/calibrationRoutes.js": "185c6398c79966d2de27e128392035202f1b9cef781035689d8f93ecb51b0833",
+  "backend/src/routes/handtagRoutes.js": "18cf48e313a75c2923e5f96f5e613fcde118e32e989adc5af80314d30b832b7c",
+  "backend/src/routes/templatesRoutes.js": "4551eacfaf7a5e686f9aff04f3801599decf92bac9f4cae899c70efe8e050c34"
+}

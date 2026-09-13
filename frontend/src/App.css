@@ -229,17 +229,17 @@
 
 .handtag-frame {
   width: 100%;
-  border: 1px solid #d7dcf7;
-  border-radius: 12px;
-  padding: 0.75rem;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
   background: #f4f6ff;
 }
 
 .handtag-stage {
   position: relative;
   width: 100%;
-  border: 1px solid #bcc5f8;
-  border-radius: 10px;
+  border: 0;
+  border-radius: 0;
   overflow: hidden;
   background-color: #fff;
   line-height: 0;
@@ -255,7 +255,6 @@
 
 .handtag-overlay {
   position: absolute;
-  inset: 0;
   z-index: 2;
 }
 
@@ -276,7 +275,7 @@
 .guide-horizontal,
 .guide-vertical {
   position: absolute;
-  background: rgba(255, 99, 71, 0.75);
+  background: #ff0000;
   pointer-events: none;
   z-index: 2;
 }
@@ -298,6 +297,10 @@
 .calibration-rnd {
   cursor: grab;
   z-index: 5 !important;
+}
+
+.calibration-rnd:not(.calibration-guides) .qr-handle {
+  opacity: 0;
 }
 
 .calibration-rnd:active {
